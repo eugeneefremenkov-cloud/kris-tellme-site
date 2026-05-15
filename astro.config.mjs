@@ -7,7 +7,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://kris-tellme.vercel.app',
+  site: 'https://kris-tellme-site.vercel.app',
   vite: {
     plugins: [tailwindcss()],
     server: {
