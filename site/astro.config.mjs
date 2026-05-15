@@ -9,7 +9,11 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
   site: 'https://kris-tellme.vercel.app',
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    server: {
+      // Allow localtunnel preview host for mobile testing (dev only)
+      allowedHosts: [".loca.lt"],
+    },
   },
 
   integrations: [mdx()]
