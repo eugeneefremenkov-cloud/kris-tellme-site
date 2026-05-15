@@ -1,0 +1,29 @@
+---
+import { CONTACT } from "../lib/constants";
+
+interface Props {
+  message: string;
+  label?: string;
+  variant?: "primary" | "outline";
+}
+
+const { message, label = "Написать в Telegram", variant = "primary" } = Astro.props;
+
+const encoded = encodeURIComponent(message);
+const href = `${CONTACT.telegramLink}?text=${encoded}`;
+
+const base =
+  "inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-sm font-medium transition-colors duration-200 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage-700";
+const styles =
+  variant === "primary"
+    ? "bg-sage-700 text-cream hover:bg-sage-800"
+    : "border border-sage-500 text-sage-800 hover:bg-sage-50";
+---
+
+<a href={href} target="_blank" rel="noopener" class={`${base} ${styles}`}>
+  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <line x1="22" y1="2" x2="11" y2="13"></line>
+    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+  </svg>
+  {label}
+</a>
