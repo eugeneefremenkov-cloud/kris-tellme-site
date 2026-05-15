@@ -1,0 +1,31 @@
+---
+import { SERVICES } from "../lib/constants";
+import ServiceCard from "./ServiceCard.astro";
+---
+
+<section id="services" class="w-full px-4 sm:px-8 py-16 sm:py-24">
+  <div class="max-w-6xl mx-auto flex flex-col gap-10">
+    <header class="flex flex-col gap-3 max-w-2xl">
+      <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">Если хочешь глубже</p>
+      <h2 class="font-serif text-3xl sm:text-4xl text-graphite font-medium leading-tight">Форматы работы</h2>
+      <p class="text-graphite/70 leading-relaxed">
+        Лично — короткие или развёрнутые форматы. Можно начать с маленького шага.
+      </p>
+    </header>
+
+    <div class="grid gap-6 sm:grid-cols-2">
+      <ServiceCard
+        title={SERVICES.consultation.title}
+        price={SERVICES.consultation.price}
+        description={SERVICES.consultation.description}
+        tgMessage={SERVICES.consultation.tgMessage}
+      />
+      <ServiceCard
+        title={SERVICES.makExpress.title}
+        price={SERVICES.makExpress.price}
+        description={SERVICES.makExpress.description}
+        tgMessage={SERVICES.makExpress.tgMessage}
+      />
+    </div>
+  </div>
+</section>

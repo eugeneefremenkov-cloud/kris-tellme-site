@@ -1,0 +1,21 @@
+---
+import TgButton from "./TgButton.astro";
+
+interface Props {
+  title: string;
+  price: string;
+  description: string;
+  tgMessage: string;
+}
+
+const { title, price, description, tgMessage } = Astro.props;
+---
+
+<article class="flex flex-col gap-4 p-6 sm:p-10 rounded-3xl bg-cream-deep border border-sage-100">
+  <h3 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight">{title}</h3>
+  <p class="text-sage-700 font-medium text-lg">{price}</p>
+  <p class="text-graphite/80 leading-relaxed flex-1">{description}</p>
+  <div class="mt-2">
+    <TgButton message={tgMessage} label="Написать в Telegram" />
+  </div>
+</article>
