@@ -121,19 +121,32 @@ import { COPING_CARDS } from "../lib/constants";
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    padding: 2rem 1rem;
+    gap: 0.75rem;
+    padding: 1rem 0.5rem;
     max-height: 100vh;
+    width: 100%;
   }
 
   .dialog-image {
-    max-width: min(90vw, 700px);
-    max-height: 82vh;
+    max-width: min(96vw, 700px);
+    max-height: 80vh;
     width: auto;
     height: auto;
     object-fit: contain;
     border-radius: 1rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    touch-action: pinch-zoom;
+  }
+
+  @media (min-width: 640px) {
+    .dialog-inner {
+      gap: 1rem;
+      padding: 2rem 1rem;
+    }
+    .dialog-image {
+      max-width: min(90vw, 700px);
+      max-height: 82vh;
+    }
   }
 
   .dialog-close {

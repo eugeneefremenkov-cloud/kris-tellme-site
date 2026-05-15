@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import { BRAND } from "../lib/constants";
+import kristinaHero from "../assets/images/kristina-hero.jpg";
 ---
 
 <section class="w-full px-4 sm:px-8 pt-8 pb-16 sm:pt-16 sm:pb-24">
@@ -23,11 +25,15 @@ import { BRAND } from "../lib/constants";
     </div>
 
     <div class="order-1 sm:order-2">
-      <img
-        src="/images/kristina-hero.jpg"
+      <Image
+        src={kristinaHero}
         alt="Кристина Ефременкова — перинатальный психолог"
-        class="w-full aspect-[3/4] object-cover rounded-3xl shadow-[var(--shadow-soft-lg)]"
+        widths={[400, 600, 800, 1000]}
+        sizes="(min-width: 640px) 50vw, 100vw"
+        format="webp"
+        quality={82}
         loading="eager"
+        class="w-full aspect-[3/4] object-cover rounded-3xl shadow-[var(--shadow-soft-lg)]"
       />
     </div>
   </div>
