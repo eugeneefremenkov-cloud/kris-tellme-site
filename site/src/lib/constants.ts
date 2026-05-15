@@ -36,8 +36,20 @@ export const COPING_CARDS = [
   {
     slug: "snizhenie-straha-rodov",
     title: "Снижение страха перед родами",
-    description: "Поддерживающая копинг-карточка для 2–3 триместра. Перечитывайте в моменты тревоги.",
+    description: "Базовая карточка-опора. Перенастраивает мысль «роды страшные» в «роды естественные».",
     pngUrl: "/cards/snizhenie-straha-rodov.png",
+  },
+  {
+    slug: "kogda-nakryvayet-trevoga",
+    title: "Когда накрывает тревога",
+    description: "Скорая помощь в моменте: дыхание 4-7-8, заземление через органы чувств, короткая фраза-якорь.",
+    pngUrl: "/cards/kogda-nakryvayet-trevoga.png",
+  },
+  {
+    slug: "vstrecha-ne-ispytanie",
+    title: "Встреча, а не испытание",
+    description: "Образ родов как первой встречи с малышом — для дней, когда настрой проседает.",
+    pngUrl: "/cards/vstrecha-ne-ispytanie.png",
   },
 ];
 
