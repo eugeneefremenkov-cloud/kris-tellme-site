@@ -1,1 +1,62 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  /* Sage palette */
+  --color-sage-50: #F4F7F3;
+  --color-sage-100: #E3EBE0;
+  --color-sage-200: #C7D6C1;
+  --color-sage-300: #A6BD9D;
+  --color-sage-400: #95B187;
+  --color-sage-500: #88A37D;
+  --color-sage-600: #6B8A60;
+  --color-sage-700: #556E4C;
+  --color-sage-800: #45593E;
+  --color-sage-900: #303E2D;
+
+  /* Neutrals */
+  --color-cream: #FAF7F1;
+  --color-cream-deep: #F5EFE4;
+  --color-graphite: #2A2A28;
+  --color-graphite-muted: #6B6B66;
+
+  /* Warm accent */
+  --color-accent: #C8A97E;
+  --color-accent-deep: #A8895E;
+
+  /* Fonts */
+  --font-serif: "Cormorant Garamond", "Georgia", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  /* Soft shadows (sage-tinted) */
+  --shadow-soft-sm: 0 1px 2px rgba(85, 110, 76, 0.05);
+  --shadow-soft: 0 4px 16px rgba(85, 110, 76, 0.08);
+  --shadow-soft-lg: 0 8px 32px rgba(85, 110, 76, 0.10);
+}
+
+html {
+  font-family: var(--font-sans);
+  color: var(--color-graphite);
+  background-color: var(--color-cream);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-graphite);
+}
+
+::selection {
+  background-color: var(--color-sage-200);
+  color: var(--color-sage-900);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
