@@ -1,10 +1,10 @@
 // Генератор PNG копинг-карточек.
 //
-// Использование (из site/):
+// Использование (из корня репо):
 //   node scripts/build-cards.mjs
 //
-// Читает scripts/cards.config.mjs, фоновые изображения из ../backgrounds/,
-// рендерит site/public/cards/<slug>.png размером 1200×1600.
+// Читает scripts/cards.config.mjs, фоновые изображения из backgrounds/,
+// рендерит public/cards/<slug>.png размером 1200×1600.
 
 import sharp from "sharp";
 import fs from "fs/promises";
@@ -14,10 +14,9 @@ import { dirname, join, resolve } from "path";
 import { cards } from "./cards.config.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const SITE_ROOT = resolve(__dirname, "..");
-const PROJECT_ROOT = resolve(SITE_ROOT, "..");
-const BG_DIR = join(PROJECT_ROOT, "backgrounds");
-const OUT_DIR = join(SITE_ROOT, "public", "cards");
+const ROOT = resolve(__dirname, "..");
+const BG_DIR = join(ROOT, "backgrounds");
+const OUT_DIR = join(ROOT, "public", "cards");
 
 const W = 1200;
 const H = 1600;
@@ -205,7 +204,7 @@ async function main() {
       process.exitCode = 1;
     }
   }
-  console.log("\nDone. Cards at site/public/cards/");
+  console.log("\nDone. Cards at public/cards/");
 }
 
 main().catch((err) => {
