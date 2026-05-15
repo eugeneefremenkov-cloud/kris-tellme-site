@@ -1,17 +1,12 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="КРИС, СКАЖИ МНЕ — перинатальный психолог Кристина Ефременкова"
+  description="Помогаю женщинам спокойно встретить роды. Копинг-карточки, статьи и форматы работы."
+>
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <p>Layout works.</p>
+  </div>
+</BaseLayout>

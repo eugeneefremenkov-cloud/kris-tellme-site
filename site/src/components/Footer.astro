@@ -1,0 +1,32 @@
+---
+import { BRAND, SOCIAL, CONTACT, DISCLAIMER } from "../lib/constants";
+---
+
+<footer class="w-full mt-24 py-12 px-4 sm:px-8 border-t border-sage-100 bg-sage-50">
+  <div class="max-w-6xl mx-auto flex flex-col gap-6 sm:flex-row sm:justify-between">
+    <div>
+      <p class="font-serif text-lg text-sage-700">
+        {BRAND.name} <span>{BRAND.emoji}</span>
+      </p>
+      <p class="text-sm text-graphite-muted mt-1">
+        {BRAND.fullName}, {BRAND.title.toLowerCase()}
+      </p>
+      <p class="text-sm text-graphite-muted">
+        {BRAND.city} · онлайн в Zoom / Телемост
+      </p>
+    </div>
+
+    <nav class="flex flex-col gap-2 text-sm">
+      <a href={SOCIAL.telegramChannel} class="hover:text-sage-700 transition-colors duration-200" target="_blank" rel="noopener">Telegram-канал</a>
+      <a href={SOCIAL.vk} class="hover:text-sage-700 transition-colors duration-200" target="_blank" rel="noopener">ВКонтакте</a>
+      <a href={SOCIAL.instagram} class="hover:text-sage-700 transition-colors duration-200" target="_blank" rel="noopener">Instagram</a>
+      <a href={CONTACT.telegramLink} class="hover:text-sage-700 transition-colors duration-200" target="_blank" rel="noopener">
+        Написать в Telegram: @{CONTACT.telegramUsername}
+      </a>
+    </nav>
+  </div>
+
+  <p class="max-w-6xl mx-auto text-xs text-graphite-muted mt-8">
+    {DISCLAIMER}
+  </p>
+</footer>
