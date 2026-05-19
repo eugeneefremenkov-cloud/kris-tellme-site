@@ -4,17 +4,27 @@ import ArticleLayout from "../../layouts/ArticleLayout.astro";
 
 export async function getStaticPaths() {
   const articles = await getCollection("articles", ({ data }) => !data.draft);
-  return articles.map((article) => ({
-    params: { slug: article.id },
-    props: { article },
-  }));
+
+  return articles.map((article) => {
+    // Похожие — та же тема, исключая саму себя, максимум 2 шт.
+    const related = articles
+      .filter((a) => a.id !== article.id && a.data.topic && a.data.topic === article.data.topic)
+      .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+      .slice(0, 2);
+
+    return {
+      params: { slug: article.id },
+      props: { article, related },
+    };
+  });
 }
 
 interface Props {
   article: CollectionEntry<"articles">;
+  related: CollectionEntry<"articles">[];
 }
 
-const { article } = Astro.props;
+const { article, related } = Astro.props;
 const { Content } = await render(article);
 ---
 
@@ -22,6 +32,7 @@ const { Content } = await render(article);
   title={article.data.title}
   description={article.data.description}
   pubDate={article.data.pubDate}
+  related={related}
 >
   <Content />
 </ArticleLayout>

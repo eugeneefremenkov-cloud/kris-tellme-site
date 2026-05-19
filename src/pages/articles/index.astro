@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+import { TOPIC_LABELS } from "../../content.config";
+import { SOCIAL } from "../../lib/constants";
 
 const allArticles = await getCollection("articles", ({ data }) => !data.draft);
 const articles = allArticles.sort(
@@ -13,6 +15,21 @@ function formatDate(date: Date): string {
     month: "long",
     year: "numeric",
   });
+}
+
+// Время чтения: считаем кириллические + латинские слова в body, делим на 200 wpm.
+function calcReadingTime(body: string | undefined): string {
+  if (!body) return "5 мин";
+  // Убираем MDX-разметку: code blocks, frontmatter, **bold**, _italic_, заголовки, ссылки
+  const clean = body
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/`[^`]*`/g, " ")
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+    .replace(/[#>*_~`]/g, " ");
+  const words = clean.split(/\s+/).filter((w) => w.length > 1).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  return `${minutes} мин`;
 }
 ---
 
@@ -28,44 +45,89 @@ function formatDate(date: Date): string {
           Что почитать
         </h1>
         <p class="text-lg text-graphite/80 leading-relaxed">
-          Короткие тексты о тревоге, теле, родах и материнстве. Новые статьи появляются по мере готовности.
+          Короткие тексты о тревоге, теле, родах и материнстве. Каждый — про конкретное состояние,
+          в котором ты можешь себя узнать.
         </p>
       </header>
 
       {articles.length === 0 ? (
         <p class="text-graphite/70">Скоро здесь появятся первые статьи.</p>
       ) : (
-        <div class="flex flex-col">
-          {articles.map((article, i) => (
-            <a
-              href={`/articles/${article.id}/`}
-              class={`group flex flex-col gap-3 py-8 sm:py-10 transition-colors duration-200 ${
-                i === 0 ? "" : "border-t border-sage-100"
-              } hover:bg-sage-50/40 -mx-4 sm:-mx-6 px-4 sm:px-6 rounded-xl`}
-            >
-              <time
-                datetime={article.data.pubDate.toISOString()}
-                class="text-sm text-graphite-muted"
+        <div class="flex flex-col gap-6 sm:gap-8">
+          {articles.map((article) => {
+            const topic = article.data.topic;
+            const topicLabel = topic ? TOPIC_LABELS[topic] : null;
+            const reading = calcReadingTime(article.body);
+            return (
+              <a
+                href={`/articles/${article.id}/`}
+                class="group relative flex flex-col gap-5 p-6 sm:p-8 lg:p-10 rounded-3xl bg-cream-deep border border-sage-100 hover:border-sage-300 transition-all duration-200 cursor-pointer"
               >
-                {formatDate(article.data.pubDate)}
-              </time>
-              <h2 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight group-hover:text-sage-800 transition-colors duration-200">
-                {article.data.title}
-              </h2>
-              <p class="text-graphite/75 leading-relaxed">
-                {article.data.description}
-              </p>
-              <span class="inline-flex items-center gap-1 text-sm text-sage-700 font-medium mt-1">
-                Читать
-                <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </span>
-            </a>
-          ))}
+                <!-- Топ-строка: тема + дата + время чтения -->
+                <div class="flex items-center gap-3 flex-wrap text-xs text-graphite-muted">
+                  {topicLabel && (
+                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-sage-100 text-sage-800 tracking-[0.12em] uppercase font-medium">
+                      {topicLabel}
+                    </span>
+                  )}
+                  <time datetime={article.data.pubDate.toISOString()}>
+                    {formatDate(article.data.pubDate)}
+                  </time>
+                  <span class="text-graphite-muted/70">·</span>
+                  <span>{reading} чтения</span>
+                </div>
+
+                <!-- Заголовок -->
+                <h2 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight group-hover:text-sage-800 transition-colors duration-200">
+                  {article.data.title}
+                </h2>
+
+                <!-- Цитата-выноска (если есть) -->
+                {article.data.quote ? (
+                  <blockquote class="font-serif text-lg sm:text-xl italic text-sage-800 leading-relaxed pl-5 border-l-2 border-sage-400">
+                    «{article.data.quote}»
+                  </blockquote>
+                ) : (
+                  <p class="text-graphite/80 leading-relaxed">{article.data.description}</p>
+                )}
+
+                <!-- CTA -->
+                <span class="inline-flex items-center gap-1 text-sm text-sage-700 font-medium mt-1">
+                  Читать
+                  <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </span>
+              </a>
+            );
+          })}
         </div>
       )}
+
+      <!-- Подвал: подписка на TG-канал -->
+      <aside class="flex flex-col gap-4 p-6 sm:p-10 rounded-3xl bg-sage-50 border border-sage-100">
+        <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">Не пропусти новое</p>
+        <h2 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight">
+          Новые статьи и заметки — в Telegram-канале
+        </h2>
+        <p class="text-graphite/80 leading-relaxed">
+          Когда пишу новый текст или замечаю что-то важное между приёмами, делюсь в канале.
+          Подпишись — материалы доходят раньше, чем появляются на сайте.
+        </p>
+        <a
+          href={SOCIAL.telegramChannel}
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 self-start mt-2 px-5 py-3 rounded-full bg-sage-700 text-cream hover:bg-sage-800 transition-colors duration-200 cursor-pointer font-medium text-sm"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+          Подписаться на канал
+        </a>
+      </aside>
     </div>
   </section>
 </BaseLayout>
