@@ -1,11 +1,125 @@
 ---
 import { BRAND } from "../lib/constants";
+
+const navItems = [
+  { href: "/", label: "Главная" },
+  { href: "/services", label: "Услуги" },
+  { href: "/articles", label: "Статьи" },
+  { href: "/checklist", label: "Подготовка" },
+];
+
+const currentPath = Astro.url.pathname;
+
+function isActive(href: string): boolean {
+  if (href === "/") return currentPath === "/" || currentPath === "";
+  return currentPath === href || currentPath === `${href}/` || currentPath.startsWith(`${href}/`);
+}
 ---
 
-<header class="w-full py-6 px-4 sm:px-8">
-  <div class="max-w-6xl mx-auto flex items-center justify-between">
-    <a href="/" class="font-serif text-xl tracking-wide text-sage-700">
+<header class="sticky top-0 z-40 w-full bg-cream/90 backdrop-blur-md border-b border-sage-100">
+  <div class="max-w-6xl mx-auto flex items-center justify-between px-4 sm:px-8 py-4 sm:py-5">
+    <a href="/" class="font-serif text-lg sm:text-xl tracking-wide text-sage-700 hover:text-sage-800 transition-colors duration-200">
       {BRAND.name} <span class="ml-1">{BRAND.emoji}</span>
     </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-8">
+      {navItems.map((item) => {
+        const active = isActive(item.href);
+        return (
+          <a
+            href={item.href}
+            class={`text-sm font-medium transition-colors duration-200 ${
+              active
+                ? "text-sage-800"
+                : "text-graphite/70 hover:text-sage-800"
+            }`}
+            aria-current={active ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+    </nav>
+
+    <!-- Mobile burger -->
+    <button
+      type="button"
+      id="nav-toggle"
+      class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-full text-graphite hover:bg-sage-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage-700 transition-colors duration-200 cursor-pointer"
+      aria-label="Открыть меню"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <svg id="nav-icon-open" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <svg id="nav-icon-close" class="hidden w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
   </div>
+
+  <!-- Mobile nav panel -->
+  <nav
+    id="mobile-nav"
+    class="hidden md:hidden border-t border-sage-100 bg-cream"
+    aria-label="Мобильная навигация"
+  >
+    <div class="max-w-6xl mx-auto flex flex-col px-4 py-3">
+      {navItems.map((item) => {
+        const active = isActive(item.href);
+        return (
+          <a
+            href={item.href}
+            class={`py-3 px-2 text-base font-medium border-b border-sage-100 last:border-b-0 transition-colors duration-200 ${
+              active
+                ? "text-sage-800"
+                : "text-graphite/80 hover:text-sage-800"
+            }`}
+            aria-current={active ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        );
+      })}
+    </div>
+  </nav>
 </header>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const mobileNav = document.getElementById("mobile-nav");
+  const iconOpen = document.getElementById("nav-icon-open");
+  const iconClose = document.getElementById("nav-icon-close");
+
+  function setOpen(open: boolean) {
+    if (!toggle || !mobileNav || !iconOpen || !iconClose) return;
+    if (open) {
+      mobileNav.classList.remove("hidden");
+      iconOpen.classList.add("hidden");
+      iconClose.classList.remove("hidden");
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Закрыть меню");
+    } else {
+      mobileNav.classList.add("hidden");
+      iconOpen.classList.remove("hidden");
+      iconClose.classList.add("hidden");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Открыть меню");
+    }
+  }
+
+  toggle?.addEventListener("click", () => {
+    const expanded = toggle.getAttribute("aria-expanded") === "true";
+    setOpen(!expanded);
+  });
+
+  // Закрыть меню при клике по ссылке (для in-page якорей и SPA-like ощущения)
+  mobileNav?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => setOpen(false));
+  });
+</script>

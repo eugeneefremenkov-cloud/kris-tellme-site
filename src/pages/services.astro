@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import { SERVICES } from "../lib/constants";
+---
+
+<BaseLayout
+  title="Услуги — КРИС, СКАЖИ МНЕ"
+  description="Форматы работы с Кристиной Ефременковой: консультация 50 минут и МАК-экспресс. Запись в Telegram."
+>
+  <section class="w-full px-4 sm:px-8 py-12 sm:py-20">
+    <div class="max-w-6xl mx-auto flex flex-col gap-12 sm:gap-16">
+      <header class="flex flex-col gap-3 max-w-2xl">
+        <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">Если хочешь глубже</p>
+        <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-graphite font-medium leading-tight">
+          Форматы работы
+        </h1>
+        <p class="text-lg text-graphite/80 leading-relaxed">
+          Лично — короткие или развёрнутые форматы. Можно начать с маленького шага.
+          Запись через Telegram, оплата после согласования времени.
+        </p>
+      </header>
+
+      <div class="grid gap-6 sm:gap-8 sm:grid-cols-2">
+        <ServiceCard
+          title={SERVICES.consultation.title}
+          price={SERVICES.consultation.price}
+          description={SERVICES.consultation.description}
+          tgMessage={SERVICES.consultation.tgMessage}
+        />
+        <ServiceCard
+          title={SERVICES.makExpress.title}
+          price={SERVICES.makExpress.price}
+          description={SERVICES.makExpress.description}
+          tgMessage={SERVICES.makExpress.tgMessage}
+        />
+      </div>
+
+      <aside class="flex flex-col gap-4 p-6 sm:p-10 rounded-3xl bg-sage-50 max-w-3xl">
+        <h2 class="font-serif text-2xl text-graphite font-medium">Не знаешь, что выбрать?</h2>
+        <p class="text-graphite/80 leading-relaxed">
+          Если впервые — начни с МАК-экспресса. Это короткий и недорогой формат,
+          в котором мы за пять минут поймём твой запрос. Если откликнется —
+          уже на консультацию приходи с готовым фокусом.
+        </p>
+        <a
+          href="https://t.me/Kris_tellme?text=Здравствуйте,%20Кристина!%20Хочу%20уточнить,%20какой%20формат%20мне%20подойдёт."
+          target="_blank"
+          rel="noopener"
+          class="inline-flex items-center gap-2 self-start mt-2 px-5 py-3 rounded-full bg-sage-700 text-cream hover:bg-sage-800 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage-700 transition-colors duration-200 cursor-pointer font-medium text-sm"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+          Спросить в Telegram
+        </a>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>

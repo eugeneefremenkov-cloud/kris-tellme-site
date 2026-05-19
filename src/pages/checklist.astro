@@ -1,0 +1,242 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { CHECKLIST } from "../lib/checklist";
+
+const totalWeight = CHECKLIST.reduce((sum, s) => sum + s.weight, 0); // 100
+---
+
+<BaseLayout
+  title="Подготовка к родам — чек-лист на 100% | КРИС, СКАЖИ МНЕ"
+  description="Интерактивный чек-лист подготовки к родам. 6 направлений, 25 пунктов. Прогресс сохраняется на твоём устройстве."
+>
+  <section class="w-full px-4 sm:px-8 py-12 sm:py-20">
+    <div class="max-w-3xl mx-auto flex flex-col gap-10">
+      <header class="flex flex-col gap-3">
+        <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">100% уверенности</p>
+        <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-graphite font-medium leading-tight">
+          Чек-лист подготовки к родам
+        </h1>
+        <p class="text-lg text-graphite/80 leading-relaxed">
+          Шесть направлений и {totalWeight === 100 ? "25" : totalWeight} конкретных шагов.
+          Отмечай выполненные пункты — прогресс сохраняется на твоём устройстве
+          и будет доступен при следующем визите.
+        </p>
+      </header>
+
+      <!-- Sticky progress bar -->
+      <div
+        id="progress-card"
+        class="sticky top-16 sm:top-20 z-30 flex flex-col gap-3 p-5 sm:p-6 rounded-2xl bg-cream-deep border border-sage-200 shadow-[var(--shadow-soft)]"
+      >
+        <div class="flex items-baseline justify-between gap-4">
+          <p class="text-sm font-medium text-graphite">
+            Готовность:
+            <span id="progress-pct" class="font-serif text-2xl text-sage-800 ml-1">0</span>
+            <span class="text-graphite-muted"> / 100 %</span>
+          </p>
+          <button
+            type="button"
+            id="reset-btn"
+            class="text-xs text-graphite-muted hover:text-sage-700 transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
+          >
+            Сбросить
+          </button>
+        </div>
+        <div class="h-2 w-full rounded-full bg-sage-100 overflow-hidden">
+          <div
+            id="progress-bar"
+            class="h-full bg-sage-600 transition-[width] duration-500 ease-out"
+            style="width: 0%"
+          ></div>
+        </div>
+      </div>
+
+      <!-- Sections -->
+      <div class="flex flex-col gap-10">
+        {CHECKLIST.map((section, sectionIndex) => (
+          <section data-section={section.id} class="flex flex-col gap-5">
+            <header class="flex items-baseline justify-between gap-4 pb-2 border-b border-sage-100">
+              <div class="flex items-baseline gap-3">
+                <span class="font-serif text-2xl text-sage-700 font-medium">{sectionIndex + 1}.</span>
+                <h2 class="font-serif text-xl sm:text-2xl text-graphite font-medium">
+                  {section.title}
+                </h2>
+              </div>
+              <span class="text-sm text-graphite-muted whitespace-nowrap">{section.weight}%</span>
+            </header>
+
+            <ul class="flex flex-col gap-3">
+              {section.items.map((item) => (
+                <li>
+                  <label
+                    for={item.id}
+                    class="group flex items-start gap-4 p-4 rounded-xl bg-cream hover:bg-sage-50/60 transition-colors duration-200 cursor-pointer"
+                  >
+                    <input
+                      type="checkbox"
+                      id={item.id}
+                      data-item-id={item.id}
+                      data-weight={item.weight}
+                      class="check-input sr-only peer"
+                    />
+                    <span
+                      class="check-box relative flex-shrink-0 mt-0.5 w-6 h-6 rounded-md border-2 border-sage-300 bg-cream peer-checked:bg-sage-700 peer-checked:border-sage-700 peer-focus-visible:ring-2 peer-focus-visible:ring-sage-300 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-cream transition-colors duration-200"
+                      aria-hidden="true"
+                    >
+                      <svg
+                        class="check-icon absolute inset-0 m-auto w-4 h-4 text-cream opacity-0 transition-opacity duration-200"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </span>
+                    <span class="flex-1 text-graphite/85 leading-relaxed group-has-[:checked]:text-graphite-muted group-has-[:checked]:line-through transition-colors duration-200">
+                      {item.text}
+                    </span>
+                    <span class="flex-shrink-0 text-sm text-graphite-muted tabular-nums ml-2 mt-0.5">
+                      {item.weight}%
+                    </span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))}
+      </div>
+
+      <!-- How to use -->
+      <aside class="flex flex-col gap-4 p-6 sm:p-8 rounded-3xl bg-sage-50">
+        <h2 class="font-serif text-xl sm:text-2xl text-graphite font-medium">Как пользоваться</h2>
+        <ul class="flex flex-col gap-2 text-graphite/85 leading-relaxed">
+          <li class="flex gap-3">
+            <span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-sage-500 flex-shrink-0"></span>
+            <span>Отмечай выполненные пункты — так увидишь прогресс и почувствуешь уверенность.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-sage-500 flex-shrink-0"></span>
+            <span>Если пункт сложно выполнить целиком — разбей на маленькие шаги.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-sage-500 flex-shrink-0"></span>
+            <span>Обсуди план с врачом или партнёром — они могут дать дополнительные рекомендации.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="mt-2.5 w-1.5 h-1.5 rounded-full bg-sage-500 flex-shrink-0"></span>
+            <span>Пересматривай список раз в 2–3 недели и корректируй при необходимости.</span>
+          </li>
+        </ul>
+      </aside>
+
+      <!-- Important note -->
+      <aside class="flex flex-col gap-2 p-6 sm:p-8 rounded-3xl bg-accent/10 border border-accent/30">
+        <p class="text-sage-800 font-serif text-lg font-medium">Важно</p>
+        <p class="text-graphite/85 leading-relaxed">
+          100% готовности — это не гарантия «идеальных» родов. Это уверенность в том,
+          что ты сделала всё возможное для подготовки. Даже если что-то пойдёт не по плану —
+          у тебя есть знания, ресурсы и поддержка, чтобы с этим справиться.
+        </p>
+      </aside>
+
+      <!-- CTA -->
+      <aside class="flex flex-col sm:flex-row sm:items-center gap-4 p-6 sm:p-8 rounded-3xl bg-cream-deep border border-sage-100">
+        <div class="flex-1 flex flex-col gap-1">
+          <p class="font-serif text-lg text-graphite font-medium">
+            Психологическая подготовка — самая трудная часть
+          </p>
+          <p class="text-sm text-graphite/75">
+            Если хочешь поработать со страхом и тревогой лично — приходи на консультацию.
+          </p>
+        </div>
+        <a
+          href="/services"
+          class="inline-flex items-center justify-center gap-2 self-start px-5 py-3 rounded-full bg-sage-700 text-cream hover:bg-sage-800 transition-colors duration-200 cursor-pointer font-medium text-sm whitespace-nowrap"
+        >
+          К форматам работы
+        </a>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const STORAGE_KEY = "kris-checklist-state-v1";
+
+  type State = Record<string, boolean>;
+
+  function loadState(): State {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    } catch (_) {
+      return {};
+    }
+  }
+
+  function saveState(state: State) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (_) {
+      // localStorage недоступен — игнорируем
+    }
+  }
+
+  function recalcProgress() {
+    let total = 0;
+    document.querySelectorAll<HTMLInputElement>(".check-input").forEach((input) => {
+      if (input.checked) {
+        total += Number(input.dataset.weight || 0);
+      }
+    });
+    const pct = Math.min(100, Math.max(0, Math.round(total)));
+    const pctEl = document.getElementById("progress-pct");
+    const barEl = document.getElementById("progress-bar");
+    if (pctEl) pctEl.textContent = String(pct);
+    if (barEl) barEl.style.width = pct + "%";
+
+    // Update check icon opacity based on actual checked state
+    document.querySelectorAll<HTMLInputElement>(".check-input").forEach((input) => {
+      const wrap = input.parentElement;
+      const icon = wrap?.querySelector<SVGElement>(".check-icon");
+      if (icon) {
+        icon.style.opacity = input.checked ? "1" : "0";
+      }
+    });
+  }
+
+  // Init: восстановить состояние и подписаться на change
+  const state = loadState();
+  document.querySelectorAll<HTMLInputElement>(".check-input").forEach((input) => {
+    const id = input.dataset.itemId;
+    if (id && state[id]) {
+      input.checked = true;
+    }
+    input.addEventListener("change", () => {
+      const itemId = input.dataset.itemId;
+      if (itemId) {
+        state[itemId] = input.checked;
+        saveState(state);
+      }
+      recalcProgress();
+    });
+  });
+
+  // Reset
+  const resetBtn = document.getElementById("reset-btn");
+  resetBtn?.addEventListener("click", () => {
+    const confirmed = confirm("Сбросить весь прогресс?");
+    if (!confirmed) return;
+    document.querySelectorAll<HTMLInputElement>(".check-input").forEach((input) => {
+      input.checked = false;
+      const itemId = input.dataset.itemId;
+      if (itemId) delete state[itemId];
+    });
+    saveState(state);
+    recalcProgress();
+  });
+
+  recalcProgress();
+</script>

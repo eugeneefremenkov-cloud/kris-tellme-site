@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allArticles = await getCollection("articles", ({ data }) => !data.draft);
+const articles = allArticles.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+function formatDate(date: Date): string {
+  return date.toLocaleDateString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+---
+
+<BaseLayout
+  title="Статьи — КРИС, СКАЖИ МНЕ"
+  description="Короткие тексты о тревоге, теле, родах и материнстве. Перинатальный психолог Кристина Ефременкова."
+>
+  <section class="w-full px-4 sm:px-8 py-12 sm:py-20">
+    <div class="max-w-3xl mx-auto flex flex-col gap-12 sm:gap-16">
+      <header class="flex flex-col gap-3">
+        <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">Блог</p>
+        <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-graphite font-medium leading-tight">
+          Что почитать
+        </h1>
+        <p class="text-lg text-graphite/80 leading-relaxed">
+          Короткие тексты о тревоге, теле, родах и материнстве. Новые статьи появляются по мере готовности.
+        </p>
+      </header>
+
+      {articles.length === 0 ? (
+        <p class="text-graphite/70">Скоро здесь появятся первые статьи.</p>
+      ) : (
+        <div class="flex flex-col">
+          {articles.map((article, i) => (
+            <a
+              href={`/articles/${article.id}/`}
+              class={`group flex flex-col gap-3 py-8 sm:py-10 transition-colors duration-200 ${
+                i === 0 ? "" : "border-t border-sage-100"
+              } hover:bg-sage-50/40 -mx-4 sm:-mx-6 px-4 sm:px-6 rounded-xl`}
+            >
+              <time
+                datetime={article.data.pubDate.toISOString()}
+                class="text-sm text-graphite-muted"
+              >
+                {formatDate(article.data.pubDate)}
+              </time>
+              <h2 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight group-hover:text-sage-800 transition-colors duration-200">
+                {article.data.title}
+              </h2>
+              <p class="text-graphite/75 leading-relaxed">
+                {article.data.description}
+              </p>
+              <span class="inline-flex items-center gap-1 text-sm text-sage-700 font-medium mt-1">
+                Читать
+                <svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </a>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
