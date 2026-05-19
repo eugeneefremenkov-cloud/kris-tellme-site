@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import TgButton from "../components/TgButton.astro";
-import { SERVICES, CONTACT } from "../lib/constants";
+import { SERVICES, PROGRAMS, CONTACT } from "../lib/constants";
 
 const forYouIf = [
   "к концу беременности всё чаще накручиваешь сценарии и не можешь остановиться",
@@ -12,7 +11,16 @@ const forYouIf = [
   "долго не получается забеременеть, и каждый цикл — стресс",
 ];
 
-const programMeetings = [
+// Селектор аудитории: 5 опций → какой формат рекомендован
+const audienceOptions = [
+  { id: "planning", label: "Планирую", target: "consultation", note: "На этом этапе обычно нужна точечная работа с одним вопросом или страхом. Программа пока избыточна." },
+  { id: "early", label: "1–19 недель", target: "consultation", note: "Ранняя беременность: чаще нужна разовая поддержка по конкретной ситуации. Программу подключают ближе к 20-й неделе." },
+  { id: "mid", label: "20–36 недель", target: "prenatal", note: "Оптимальный момент для системной подготовки. У тебя есть 4 недели — идеально под программу." },
+  { id: "late", label: "37–40 недель", target: "prenatal", note: "До родов осталось мало времени. Можно успеть короткий формат программы или начать с разовой встречи." },
+  { id: "postpartum", label: "После родов", target: "postnatal", note: "Первые недели и месяцы — самые уязвимые. Программа поможет пройти их устойчиво." },
+];
+
+const prenatalMeetings = [
   {
     n: 1,
     title: "Карта тревог + первая опора",
@@ -39,141 +47,109 @@ const programMeetings = [
   },
 ];
 
-const process = [
+const postnatalMeetings = [
   {
     n: 1,
-    title: "Пиши в Telegram",
-    text: "Короткое сообщение — что хочешь обсудить, на каком сроке ты сейчас.",
+    title: "Первые недели: что нормально",
+    body: "Слёзы по пустякам, чувство вины, провалы в памяти, страх «я не справляюсь» — что из этого норма послеродового периода, а что сигнал обратиться за помощью. Разбираем твою конкретную ситуацию.",
+    outcome: "Карта своего состояния + чек-лист «когда сразу к врачу» + 2 техники самопомощи.",
   },
   {
     n: 2,
-    title: "Я отвечу в течение дня",
-    text: "Согласуем формат, удобное время. Если сомневаешься — задай вопросы заранее.",
+    title: "Тело, сон, восстановление",
+    body: "Психология вокруг физического восстановления: как договариваться с собой о темпе, что делать с раздражением от недосыпа, как не сравнивать своё тело с инстаграмом.",
+    outcome: "Личная стратегия сна и отдыха в твоих условиях + работа с виной за «себя».",
   },
   {
     n: 3,
-    title: "Оплата и подтверждение",
-    text: "Перевод на карту. Получишь ссылку Zoom или Телемост и короткую анкету.",
+    title: "Отношения и идентичность",
+    body: "«Я больше не та, что была» — как пройти этот переход без чувства потери. Что меняется с партнёром, с родителями, с подругами. Что делать, если хочется обратно «до».",
+    outcome: "Сценарии трудных разговоров (с партнёром, с роднёй) + опоры в новой идентичности.",
   },
   {
     n: 4,
-    title: "Встреча",
-    text: "50 минут. Видео — по желанию. Без диктофона, всё конфиденциально.",
+    title: "Новый ритм жизни",
+    body: "Возвращение к работе, социализация, дружба, как находить минуты для себя. Сборка всех инструментов в систему, которая работает в твоей реальной жизни — без идеала.",
+    outcome: "Карта твоих опор на ближайшие 3 месяца + recap всех техник программы.",
   },
-  {
-    n: 5,
-    title: "Материалы после",
-    text: "В течение 24 часов — план, упражнения, recap встречи в Telegram.",
-  },
+];
+
+const process = [
+  { n: 1, title: "Пиши в Telegram", text: "Короткое сообщение — что хочешь обсудить, на каком сроке ты сейчас или сколько времени после родов." },
+  { n: 2, title: "Я отвечу в течение дня", text: "Согласуем формат и тариф. Если сомневаешься — задай вопросы заранее, я подскажу, что подойдёт." },
+  { n: 3, title: "Оплата и подтверждение", text: "Перевод на карту. Для видео-тарифов сразу пришлю ссылку на закрытый плейлист. Для персонального — план встреч и Zoom-ссылку." },
+  { n: 4, title: "Работа", text: "Видео можно смотреть в своём темпе. Живые встречи — раз в неделю по 50 минут. Между ними — практики и переписка." },
+  { n: 5, title: "Материалы после", text: "После каждой встречи — recap и план в Telegram. После всей программы — финальная карта опор." },
 ];
 
 const directions = [
-  {
-    title: "Беременность",
-    text: "Тревога перед родами, страх боли, конфликты с близкими из-за беременности, подготовка к встрече с малышом.",
-  },
-  {
-    title: "Послеродовой период",
-    text: "Адаптация в первые месяцы, раздражительность, чувство вины, дефицит сна, потеря «себя».",
-  },
-  {
-    title: "Планирование",
-    text: "Поддержка при длительных попытках забеременеть, в период диагностики и обследований.",
-  },
+  { title: "Беременность", text: "Тревога перед родами, страх боли, конфликты с близкими из-за беременности, подготовка к встрече с малышом." },
+  { title: "Послеродовой период", text: "Адаптация в первые месяцы, раздражительность, чувство вины, дефицит сна, потеря «себя»." },
+  { title: "Планирование", text: "Поддержка при длительных попытках забеременеть, в период диагностики и обследований." },
 ];
 
 const methods = [
-  {
-    title: "КПТ",
-    text: "Когнитивно-поведенческая терапия — работа с автоматическими мыслями и катастрофизацией.",
-  },
-  {
-    title: "Схема-терапия",
-    text: "Глубже про устойчивые паттерны — что заставляет тебя реагировать так, как реагируешь.",
-  },
-  {
-    title: "МАК (метафорические карты)",
-    text: "Для доступа к чувствам, когда слова не находятся. Работает как мостик от тела к словам.",
-  },
-  {
-    title: "Телесная терапия",
-    text: "Для работы со страхом боли, дыханием, заземлением. Тело — наш союзник в родах.",
-  },
+  { title: "КПТ", text: "Когнитивно-поведенческая терапия — работа с автоматическими мыслями и катастрофизацией." },
+  { title: "Схема-терапия", text: "Глубже про устойчивые паттерны — что заставляет тебя реагировать так, как реагируешь." },
+  { title: "МАК (метафорические карты)", text: "Для доступа к чувствам, когда слова не находятся. Работает как мостик от тела к словам." },
+  { title: "Телесная терапия", text: "Для работы со страхом боли, дыханием, заземлением. Тело — наш союзник в родах." },
 ];
 
 const conditions = [
-  {
-    title: "Конфиденциальность",
-    text: "Всё, что ты говоришь на встрече, остаётся между нами. Я не публикую истории клиентов даже анонимно без явного согласия.",
-  },
-  {
-    title: "Отмена и перенос",
-    text: "Можно отменить или перенести бесплатно за 24 часа до встречи. Если случилось срочное в день встречи (роды начались) — переносим без вопросов.",
-  },
-  {
-    title: "Технически",
-    text: "Нужен смартфон или ноутбук с интернетом и наушники. Видео — по желанию.",
-  },
-  {
-    title: "Оплата",
-    text: "Перевод на карту. Программу можно оплатить полностью или 50/50 (перед 1-й и перед 3-й встречей).",
-  },
+  { title: "Конфиденциальность", text: "Всё, что ты говоришь на встрече, остаётся между нами. Я не публикую истории клиентов даже анонимно без явного согласия." },
+  { title: "Доступ к видео", text: "После оплаты самостоятельного тарифа я присылаю ссылку на закрытый YouTube-плейлист и PDF-материалы. Доступ — навсегда." },
+  { title: "Отмена и перенос", text: "Живые встречи можно отменить или перенести бесплатно за 24 часа. Если случилось срочное в день встречи (роды начались) — переносим без вопросов." },
+  { title: "Оплата", text: "Перевод на карту. Персональный тариф программы можно оплатить полностью или 50/50 (перед 1-й и перед 3-й встречей)." },
 ];
 
 const faq = [
+  {
+    q: "Чем самостоятельный тариф отличается от персонального?",
+    a: "Самостоятельный — это видео-курс, который ты смотришь в своём темпе, плюс рабочая тетрадь с упражнениями. Подходит, если бюджет ограничен или хочется сначала «попробовать на себе». Персональный тариф = тот же видео-курс + 4 живые встречи со мной, индивидуальный план под твою историю и безлимитная переписка. Подходит, когда тревога сильная и хочется поддержки рядом.",
+  },
+  {
+    q: "Можно ли перейти с самостоятельного на персональный?",
+    a: "Да. Если начала с видео и поняла, что хочешь личной работы — пиши, и я зачту стоимость самостоятельного тарифа в оплату персонального. Доплата 12 000 ₽.",
+  },
+  {
+    q: "Что если я просто хочу разовый разговор?",
+    a: "Тогда выбирай разовую консультацию (4 900 ₽ / 50 минут). Это формат для точечного запроса: один вопрос, один разговор. Без обязательств продолжать.",
+  },
   {
     q: "Чем перинатальный психолог отличается от обычного?",
     a: "Перинатальный психолог работает только с темой родительства: беременность, роды, послеродовое, планирование. Я знаю физиологию беременности, понимаю, что нормально на каком сроке, и не «лечу» гормональные перепады.",
   },
   {
-    q: "Что если мне страшно начать?",
-    a: "Это нормально. Если хочешь — начнём с МАК-экспресса за 500 ₽: 5 минут, я вытаскиваю карту и присылаю расшифровку голосовыми. Это лёгкий способ познакомиться без обязательств.",
-  },
-  {
     q: "А если онлайн «не настоящее»?",
-    a: "Онлайн-формат — основной для перинатальной работы. Ты не выходишь из дома, нет дороги, нет тревоги по поводу транспорта. Качество разговора то же. Если совсем не отзывается — после первой встречи возвращаю деньги.",
+    a: "Онлайн-формат — основной для перинатальной работы. Ты не выходишь из дома, нет дороги, нет тревоги по поводу транспорта. Качество разговора то же. Если после первой встречи понимаешь, что не «твоё» — возвращаю деньги за неиспользованные встречи.",
   },
   {
     q: "Вы будете против моих решений (партнёрские роды, выбор роддома)?",
-    a: "Нет. Я не выбираю за тебя — я помогаю принять решение осознанно, понимая свои страхи и желания. Твои выборы — твои.",
+    a: "Нет. Я не выбираю за тебя — помогаю принять решение осознанно, понимая свои страхи и желания. Твои выборы — твои.",
   },
   {
     q: "А если я не смогу выполнять практики между встречами?",
-    a: "Это тоже информация. Если не получается — мы обсудим почему. Я не оцениваю — я помогаю настроить процесс под твою реальную жизнь.",
+    a: "Это тоже информация. Если не получается — обсудим почему. Я не оцениваю — помогаю настроить процесс под твою реальную жизнь.",
   },
   {
-    q: "Что если мне не подойдёт ваш стиль?",
-    a: "Если после первой встречи понимаешь, что не «твоё» — скажи прямо. Возвращу деньги за неиспользованные встречи программы. Один формат не подходит всем, и это нормально.",
-  },
-  {
-    q: "Откуда я знаю, что вы умеете работать с беременными?",
+    q: "Откуда я знаю, что вы умеете работать с беременными и мамами?",
     a: "Среднее медицинское и высшее психологическое образование, 5 лет частной практики, повышение квалификации по перинатальному профилю. На главной сайта есть 3 бесплатные копинг-карточки — посмотри тон и подход. Если откликается, мы найдём общий язык.",
   },
 ];
 
 const heroFacts = [
-  {
-    label: "Что получишь",
-    value: "План на 14 дней и техники саморегуляции после первой встречи",
-  },
-  {
-    label: "Как",
-    value: "Онлайн в Zoom или Телемост, ты не выходишь из дома",
-  },
-  {
-    label: "Метод",
-    value: "КПТ, схема-терапия, МАК. Без эзотерики и обещаний",
-  },
-  {
-    label: "Безопасно",
-    value: "Правила конфиденциальности прописаны заранее",
-  },
+  { label: "Что получишь", value: "Видео-курс или 4 живые встречи с персональным планом" },
+  { label: "Как", value: "Онлайн: видео в своём темпе или Zoom/Телемост по расписанию" },
+  { label: "Метод", value: "КПТ, схема-терапия, МАК. Без эзотерики и обещаний" },
+  { label: "Безопасно", value: "Правила конфиденциальности прописаны заранее" },
 ];
+
+const programs = [PROGRAMS.prenatal, PROGRAMS.postnatal];
 ---
 
 <BaseLayout
   title="Услуги — КРИС, СКАЖИ МНЕ"
-  description="Программа подготовки к родам, разовые консультации и МАК-экспресс. Перинатальный психолог Кристина Ефременкова. Онлайн в Zoom или Телемост."
+  description="Программа подготовки к родам, сопровождение после родов и разовые консультации. Видео-курс или личная работа с Кристиной Ефременковой. Онлайн по всей России."
 >
   <!-- HERO -->
   <section class="w-full px-4 sm:px-8 py-12 sm:py-20">
@@ -181,11 +157,11 @@ const heroFacts = [
       <header class="flex flex-col gap-4 max-w-3xl">
         <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">Услуги</p>
         <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-graphite font-medium leading-tight">
-          Помогу пройти беременность и роды без паники
+          Помогу пройти беременность, роды и первый год материнства без паники
         </h1>
         <p class="text-lg text-graphite/80 leading-relaxed">
           Перинатальный психолог. Работаю с тревогой и страхами при беременности, после родов и при
-          планировании. Онлайн по всей России — Zoom или Телемост.
+          планировании. Онлайн по всей России — видео-курс или живые встречи в Zoom/Телемост.
         </p>
       </header>
 
@@ -197,6 +173,40 @@ const heroFacts = [
           </div>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- СЕЛЕКТОР АУДИТОРИИ -->
+  <section class="w-full px-4 sm:px-8 py-10 sm:py-14 bg-cream-deep border-y border-sage-100">
+    <div class="max-w-6xl mx-auto flex flex-col gap-6" data-audience-selector>
+      <header class="flex flex-col gap-2 max-w-2xl">
+        <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">Подбор формата</p>
+        <h2 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight">
+          На каком ты сейчас этапе?
+        </h2>
+        <p class="text-graphite/75 leading-relaxed">
+          Выбери и я подсвечу формат, который скорее всего подходит под твою ситуацию.
+        </p>
+      </header>
+
+      <div class="flex flex-wrap gap-2">
+        {audienceOptions.map((opt) => (
+          <button
+            type="button"
+            class="audience-btn px-4 py-2.5 rounded-full text-sm font-medium border border-sage-200 bg-cream text-graphite/85 hover:bg-sage-50 hover:border-sage-300 transition-colors duration-200 cursor-pointer data-[active=true]:bg-sage-700 data-[active=true]:text-cream data-[active=true]:border-sage-700"
+            data-audience-id={opt.id}
+            data-audience-target={opt.target}
+            data-audience-note={opt.note}
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
+
+      <p
+        id="audience-note"
+        class="hidden text-sm text-graphite/80 leading-relaxed p-4 rounded-2xl bg-sage-50 border border-sage-100 max-w-3xl"
+      ></p>
     </div>
   </section>
 
@@ -226,107 +236,205 @@ const heroFacts = [
       <header class="flex flex-col gap-3 max-w-2xl">
         <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">Форматы работы</p>
         <h2 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight">
-          Три формата — от лёгкого знакомства до системной подготовки
+          Две программы и разовая консультация
         </h2>
       </header>
 
       <div class="grid gap-6 lg:grid-cols-3 lg:items-stretch">
-        <!-- Программа — выделена -->
-        <article class="relative flex flex-col gap-5 p-6 sm:p-8 rounded-3xl bg-sage-700 text-cream lg:col-span-1">
-          <span class="absolute top-5 right-5 text-[10px] tracking-[0.18em] uppercase font-medium px-3 py-1 rounded-full bg-cream text-sage-800">
-            Популярное
-          </span>
-          <div class="flex flex-col gap-1.5">
-            <p class="text-xs tracking-[0.14em] uppercase text-cream/70 font-medium">{SERVICES.program.duration}</p>
-            <h3 class="font-serif text-2xl text-cream font-medium leading-tight">{SERVICES.program.title}</h3>
-          </div>
-          <div class="flex items-baseline gap-2">
-            <p class="font-serif text-3xl text-cream font-medium">{SERVICES.program.price}</p>
-            <p class="text-sm text-cream/70">{SERVICES.program.pricePer}</p>
-          </div>
-          <p class="text-cream/90 leading-relaxed">{SERVICES.program.description}</p>
-
-          <ul class="flex flex-col gap-2 text-sm text-cream/85 leading-relaxed border-t border-cream/20 pt-5">
-            <li class="flex gap-2"><span class="mt-1.5 w-1 h-1 rounded-full bg-cream/60 flex-shrink-0"></span><span>Безлимитная переписка в Telegram/ВК всё время программы + 2 недели после</span></li>
-            <li class="flex gap-2"><span class="mt-1.5 w-1 h-1 rounded-full bg-cream/60 flex-shrink-0"></span><span>Доступ к 18 копинг-карточкам по коду участницы</span></li>
-            <li class="flex gap-2"><span class="mt-1.5 w-1 h-1 rounded-full bg-cream/60 flex-shrink-0"></span><span>Финальная карта опор и план родов</span></li>
-          </ul>
-
-          <a
-            href={`${CONTACT.telegramLink}?text=${encodeURIComponent(SERVICES.program.tgMessage)}`}
-            target="_blank"
-            rel="noopener"
-            class="inline-flex items-center justify-center gap-2 self-start mt-2 px-5 py-3 rounded-full bg-cream text-sage-800 hover:bg-white transition-colors duration-200 cursor-pointer font-medium text-sm"
+        {programs.map((program) => (
+          <article
+            data-format-card={program.slug}
+            class="format-card relative flex flex-col gap-5 p-6 sm:p-7 rounded-3xl bg-cream-deep border border-sage-100 transition-all duration-300"
           >
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="22" y1="2" x2="11" y2="13"></line>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-            </svg>
-            Записаться на программу
-          </a>
-        </article>
+            <span
+              class="recommended-badge hidden absolute -top-3 left-6 text-[10px] tracking-[0.18em] uppercase font-medium px-3 py-1 rounded-full bg-sage-700 text-cream shadow-[var(--shadow-soft)]"
+            >
+              Рекомендуем
+            </span>
 
-        <!-- Консультация -->
-        <article class="flex flex-col gap-5 p-6 sm:p-8 rounded-3xl bg-cream-deep border border-sage-100">
-          <div class="flex flex-col gap-1.5">
+            <header class="flex flex-col gap-1.5">
+              <p class="text-xs tracking-[0.14em] uppercase text-sage-700 font-medium">{program.audienceLabel}</p>
+              <h3 class="font-serif text-2xl text-graphite font-medium leading-tight">{program.title}</h3>
+            </header>
+
+            <p class="text-sm text-graphite/80 leading-relaxed">{program.description}</p>
+
+            <!-- Tariff tabs -->
+            <div class="flex p-1 rounded-full bg-cream border border-sage-100" role="tablist">
+              <button
+                type="button"
+                class="tariff-tab flex-1 px-3 py-2 rounded-full text-xs font-medium text-graphite/70 hover:text-graphite transition-colors duration-200 cursor-pointer data-[active=true]:bg-sage-700 data-[active=true]:text-cream"
+                data-tariff="self"
+                data-active="true"
+                aria-label="Тариф самостоятельный"
+              >
+                {program.self.label}
+              </button>
+              <button
+                type="button"
+                class="tariff-tab flex-1 px-3 py-2 rounded-full text-xs font-medium text-graphite/70 hover:text-graphite transition-colors duration-200 cursor-pointer data-[active=true]:bg-sage-700 data-[active=true]:text-cream"
+                data-tariff="personal"
+                aria-label="Тариф персональный"
+              >
+                {program.personal.label}
+              </button>
+            </div>
+
+            <!-- Self tariff content -->
+            <div data-tariff-content="self" class="flex flex-col gap-4 flex-1">
+              <div class="flex items-baseline gap-2">
+                <p class="font-serif text-3xl text-sage-800 font-medium">{program.self.price}</p>
+                <p class="text-sm text-graphite-muted">{program.self.pricePer}</p>
+              </div>
+              <ul class="flex flex-col gap-2 text-sm text-graphite/80 leading-relaxed flex-1">
+                {program.self.includes.map((line) => (
+                  <li class="flex gap-2">
+                    <svg class="w-4 h-4 mt-0.5 text-sage-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={`${CONTACT.telegramLink}?text=${encodeURIComponent(program.self.tgMessage)}`}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center justify-center gap-2 self-start mt-2 px-5 py-3 rounded-full bg-sage-700 text-cream hover:bg-sage-800 transition-colors duration-200 cursor-pointer font-medium text-sm"
+              >
+                Записаться
+              </a>
+            </div>
+
+            <!-- Personal tariff content -->
+            <div data-tariff-content="personal" class="hidden flex-col gap-4 flex-1">
+              <div class="flex items-baseline gap-2">
+                <p class="font-serif text-3xl text-sage-800 font-medium">{program.personal.price}</p>
+                <p class="text-sm text-graphite-muted">{program.personal.pricePer}</p>
+              </div>
+              <ul class="flex flex-col gap-2 text-sm text-graphite/80 leading-relaxed flex-1">
+                {program.personal.includes.map((line) => (
+                  <li class="flex gap-2">
+                    <svg class="w-4 h-4 mt-0.5 text-sage-600 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <span>{line}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href={`${CONTACT.telegramLink}?text=${encodeURIComponent(program.personal.tgMessage)}`}
+                target="_blank"
+                rel="noopener"
+                class="inline-flex items-center justify-center gap-2 self-start mt-2 px-5 py-3 rounded-full bg-sage-700 text-cream hover:bg-sage-800 transition-colors duration-200 cursor-pointer font-medium text-sm"
+              >
+                Записаться
+              </a>
+            </div>
+          </article>
+        ))}
+
+        <!-- Разовая консультация -->
+        <article
+          data-format-card="consultation"
+          class="format-card flex flex-col gap-5 p-6 sm:p-7 rounded-3xl bg-cream-deep border border-sage-100 transition-all duration-300 relative"
+        >
+          <span
+            class="recommended-badge hidden absolute -top-3 left-6 text-[10px] tracking-[0.18em] uppercase font-medium px-3 py-1 rounded-full bg-sage-700 text-cream shadow-[var(--shadow-soft)]"
+          >
+            Рекомендуем
+          </span>
+
+          <header class="flex flex-col gap-1.5">
             <p class="text-xs tracking-[0.14em] uppercase text-sage-700 font-medium">{SERVICES.consultation.duration}</p>
             <h3 class="font-serif text-2xl text-graphite font-medium leading-tight">{SERVICES.consultation.title}</h3>
-          </div>
-          <div class="flex items-baseline gap-2">
+          </header>
+
+          <p class="text-sm text-graphite/80 leading-relaxed">{SERVICES.consultation.description}</p>
+
+          <div class="flex items-baseline gap-2 mt-auto">
             <p class="font-serif text-3xl text-sage-800 font-medium">{SERVICES.consultation.price}</p>
             <p class="text-sm text-graphite-muted">{SERVICES.consultation.pricePer}</p>
           </div>
-          <p class="text-graphite/80 leading-relaxed flex-1">{SERVICES.consultation.description}</p>
 
-          <TgButton message={SERVICES.consultation.tgMessage} label="Записаться" />
-        </article>
-
-        <!-- МАК-экспресс -->
-        <article class="flex flex-col gap-5 p-6 sm:p-8 rounded-3xl bg-cream-deep border border-sage-100">
-          <div class="flex flex-col gap-1.5">
-            <p class="text-xs tracking-[0.14em] uppercase text-sage-700 font-medium">{SERVICES.makExpress.duration}</p>
-            <h3 class="font-serif text-2xl text-graphite font-medium leading-tight">{SERVICES.makExpress.title}</h3>
-          </div>
-          <div class="flex items-baseline gap-2">
-            <p class="font-serif text-3xl text-sage-800 font-medium">{SERVICES.makExpress.price}</p>
-            <p class="text-sm text-graphite-muted">{SERVICES.makExpress.pricePer}</p>
-          </div>
-          <p class="text-graphite/80 leading-relaxed flex-1">{SERVICES.makExpress.description}</p>
-
-          <TgButton message={SERVICES.makExpress.tgMessage} label="Заказать МАК" />
+          <a
+            href={`${CONTACT.telegramLink}?text=${encodeURIComponent(SERVICES.consultation.tgMessage)}`}
+            target="_blank"
+            rel="noopener"
+            class="inline-flex items-center justify-center gap-2 self-start mt-2 px-5 py-3 rounded-full bg-sage-700 text-cream hover:bg-sage-800 transition-colors duration-200 cursor-pointer font-medium text-sm"
+          >
+            Записаться
+          </a>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ПРОГРАММА — детально -->
+  <!-- ЧТО ВНУТРИ ПРОГРАММ -->
   <section class="w-full px-4 sm:px-8 py-12 sm:py-20 bg-sage-50">
-    <div class="max-w-3xl mx-auto flex flex-col gap-10">
-      <header class="flex flex-col gap-3">
-        <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">Что внутри программы</p>
+    <div class="max-w-6xl mx-auto flex flex-col gap-12">
+      <header class="flex flex-col gap-3 max-w-2xl">
+        <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">Что внутри программ</p>
         <h2 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight">
-          4 встречи — 4 этапа подготовки
+          4 этапа в каждой программе
         </h2>
         <p class="text-graphite/75 leading-relaxed">
-          Каждая встреча длится 50 минут, проходит онлайн раз в неделю. После каждой ты уходишь
-          с конкретным артефактом и домашней практикой — не «общими ощущениями», а ясным следующим шагом.
+          Видео в самостоятельном тарифе и живые встречи в персональном — построены вокруг одной и той же структуры.
+          Каждый этап заканчивается конкретным артефактом, а не «общими ощущениями».
         </p>
       </header>
 
-      <ol class="flex flex-col gap-4">
-        {programMeetings.map((m) => (
-          <li class="flex flex-col gap-3 p-6 rounded-2xl bg-cream border border-sage-100">
-            <div class="flex items-baseline gap-4">
-              <span class="font-serif text-3xl text-sage-700 font-medium">{m.n}</span>
-              <h3 class="font-serif text-xl text-graphite font-medium leading-tight">{m.title}</h3>
-            </div>
-            <p class="text-graphite/85 leading-relaxed">{m.body}</p>
-            <p class="text-sm text-sage-800 leading-relaxed pl-4 border-l-2 border-sage-300">
-              <span class="font-medium">С чем уйдёшь:</span> {m.outcome}
-            </p>
-          </li>
-        ))}
-      </ol>
+      <div class="grid gap-10 lg:grid-cols-2">
+        <!-- Подготовка к родам -->
+        <div class="flex flex-col gap-6">
+          <header class="flex flex-col gap-1.5">
+            <p class="text-xs tracking-[0.14em] uppercase text-sage-700 font-medium">Подготовка к родам</p>
+            <h3 class="font-serif text-xl sm:text-2xl text-graphite font-medium leading-tight">
+              Программа «Подготовка к родам»
+            </h3>
+          </header>
+
+          <ol class="flex flex-col gap-3">
+            {prenatalMeetings.map((m) => (
+              <li class="flex flex-col gap-2 p-5 rounded-2xl bg-cream border border-sage-100">
+                <div class="flex items-baseline gap-3">
+                  <span class="font-serif text-2xl text-sage-700 font-medium">{m.n}</span>
+                  <h4 class="font-serif text-lg text-graphite font-medium leading-tight">{m.title}</h4>
+                </div>
+                <p class="text-sm text-graphite/85 leading-relaxed">{m.body}</p>
+                <p class="text-xs text-sage-800 leading-relaxed pl-3 border-l-2 border-sage-300 mt-1">
+                  <span class="font-medium">С чем уйдёшь:</span> {m.outcome}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <!-- Сопровождение после родов -->
+        <div class="flex flex-col gap-6">
+          <header class="flex flex-col gap-1.5">
+            <p class="text-xs tracking-[0.14em] uppercase text-sage-700 font-medium">Сопровождение после родов</p>
+            <h3 class="font-serif text-xl sm:text-2xl text-graphite font-medium leading-tight">
+              Программа «Сопровождение после родов»
+            </h3>
+          </header>
+
+          <ol class="flex flex-col gap-3">
+            {postnatalMeetings.map((m) => (
+              <li class="flex flex-col gap-2 p-5 rounded-2xl bg-cream border border-sage-100">
+                <div class="flex items-baseline gap-3">
+                  <span class="font-serif text-2xl text-sage-700 font-medium">{m.n}</span>
+                  <h4 class="font-serif text-lg text-graphite font-medium leading-tight">{m.title}</h4>
+                </div>
+                <p class="text-sm text-graphite/85 leading-relaxed">{m.body}</p>
+                <p class="text-xs text-sage-800 leading-relaxed pl-3 border-l-2 border-sage-300 mt-1">
+                  <span class="font-medium">С чем уйдёшь:</span> {m.outcome}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -441,20 +549,16 @@ const heroFacts = [
       </header>
 
       <div class="flex flex-col gap-3">
-        {faq.map((item, i) => (
+        {faq.map((item) => (
           <details class="group rounded-2xl border border-sage-100 bg-cream open:bg-cream-deep transition-colors duration-200">
             <summary class="flex items-center justify-between gap-4 p-5 sm:p-6 cursor-pointer list-none">
-              <h3 class="font-serif text-lg text-graphite font-medium leading-tight pr-4">
-                {item.q}
-              </h3>
+              <h3 class="font-serif text-lg text-graphite font-medium leading-tight pr-4">{item.q}</h3>
               <svg class="w-5 h-5 flex-shrink-0 text-sage-700 transition-transform duration-200 group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="12" y1="5" x2="12" y2="19"></line>
                 <line x1="5" y1="12" x2="19" y2="12"></line>
               </svg>
             </summary>
-            <div class="px-5 sm:px-6 pb-5 sm:pb-6 -mt-1 text-graphite/80 leading-relaxed">
-              {item.a}
-            </div>
+            <div class="px-5 sm:px-6 pb-5 sm:pb-6 -mt-1 text-graphite/80 leading-relaxed">{item.a}</div>
           </details>
         ))}
       </div>
@@ -486,3 +590,87 @@ const heroFacts = [
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* Tariff content — hidden state stays flex-col when shown */
+  [data-tariff-content].hidden {
+    display: none;
+  }
+  [data-tariff-content]:not(.hidden) {
+    display: flex;
+  }
+
+  /* Highlighted format card when recommended via audience selector */
+  .format-card.is-recommended {
+    border-color: var(--color-sage-500);
+    box-shadow: 0 0 0 3px rgba(136, 163, 125, 0.18), var(--shadow-soft);
+  }
+  .format-card.is-dimmed {
+    opacity: 0.6;
+  }
+</style>
+
+<script>
+  // Tariff tabs внутри каждой программной карточки
+  document.querySelectorAll<HTMLElement>("[data-format-card]").forEach((card) => {
+    const tabs = card.querySelectorAll<HTMLButtonElement>(".tariff-tab");
+    const contents = card.querySelectorAll<HTMLElement>("[data-tariff-content]");
+    if (tabs.length === 0) return;
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const tariff = tab.getAttribute("data-tariff");
+        tabs.forEach((t) => t.setAttribute("data-active", t === tab ? "true" : "false"));
+        contents.forEach((c) => {
+          const matches = c.getAttribute("data-tariff-content") === tariff;
+          c.classList.toggle("hidden", !matches);
+        });
+      });
+    });
+  });
+
+  // Селектор аудитории → подсветить рекомендованную карточку
+  const selector = document.querySelector<HTMLElement>("[data-audience-selector]");
+  const noteEl = document.getElementById("audience-note");
+  const audienceBtns = selector?.querySelectorAll<HTMLButtonElement>(".audience-btn") || [];
+  const allFormatCards = document.querySelectorAll<HTMLElement>("[data-format-card]");
+
+  audienceBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const isActive = btn.getAttribute("data-active") === "true";
+
+      // Сбросить всё
+      audienceBtns.forEach((b) => b.setAttribute("data-active", "false"));
+      allFormatCards.forEach((c) => {
+        c.classList.remove("is-recommended", "is-dimmed");
+        c.querySelector(".recommended-badge")?.classList.add("hidden");
+      });
+
+      // Если клик по уже активной — просто сбрасываем
+      if (isActive) {
+        noteEl?.classList.add("hidden");
+        return;
+      }
+
+      // Активировать кнопку и применить подсветку
+      btn.setAttribute("data-active", "true");
+      const target = btn.getAttribute("data-audience-target");
+      const note = btn.getAttribute("data-audience-note") || "";
+
+      allFormatCards.forEach((c) => {
+        const slug = c.getAttribute("data-format-card");
+        if (slug === target) {
+          c.classList.add("is-recommended");
+          c.querySelector(".recommended-badge")?.classList.remove("hidden");
+        } else {
+          c.classList.add("is-dimmed");
+        }
+      });
+
+      if (noteEl) {
+        noteEl.textContent = note;
+        noteEl.classList.remove("hidden");
+      }
+    });
+  });
+</script>
