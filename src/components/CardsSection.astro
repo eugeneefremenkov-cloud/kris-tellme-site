@@ -1,9 +1,18 @@
 ---
-import { COPING_CARDS } from "../lib/constants";
+import { CARD_CATEGORIES, FREE_CARDS, PREMIUM_CARDS, PREMIUM_CODE_HASH } from "../lib/constants";
+
+// Группируем FREE_CARDS по category
+const cardsByCategory = CARD_CATEGORIES.map((cat) => ({
+  ...cat,
+  cards: FREE_CARDS.filter((c) => c.category === cat.slug),
+}));
+
+// Объединённый список для модалок (free + premium)
+const allCards = [...FREE_CARDS, ...PREMIUM_CARDS];
 ---
 
 <section id="cards" class="w-full px-4 sm:px-8 py-16 sm:py-24">
-  <div class="max-w-6xl mx-auto flex flex-col gap-12">
+  <div class="max-w-6xl mx-auto flex flex-col gap-16 sm:gap-20">
     <header class="flex flex-col gap-3 max-w-2xl">
       <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">Бесплатные материалы</p>
       <h2 class="font-serif text-3xl sm:text-4xl text-graphite font-medium leading-tight">Копинг-карточки</h2>
@@ -12,85 +21,182 @@ import { COPING_CARDS } from "../lib/constants";
       </p>
     </header>
 
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {COPING_CARDS.map((card) => (
-        <article class="flex flex-col gap-4">
-          <button
-            type="button"
-            class="card-trigger group block w-full text-left cursor-pointer"
-            data-target={card.slug}
-            aria-label={`Открыть карточку: ${card.title}`}
-          >
-            <img
-              src={card.pngUrl}
-              alt={card.title}
-              loading="lazy"
-              class="w-full aspect-[3/4] object-cover rounded-2xl shadow-[var(--shadow-soft)] bg-cream transition-shadow duration-200 group-hover:shadow-[var(--shadow-soft-lg)]"
-            />
-          </button>
+    {cardsByCategory.map((cat) => (
+      <div class="flex flex-col gap-8">
+        <header class="flex flex-col gap-2 max-w-2xl">
+          <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">{cat.title}</p>
+          <p class="text-graphite/70 leading-relaxed">{cat.description}</p>
+        </header>
 
-          <div class="flex flex-col gap-2">
-            <h3 class="font-serif text-xl sm:text-2xl text-graphite font-medium leading-tight">{card.title}</h3>
-            <p class="text-sm text-graphite/70 leading-relaxed">{card.description}</p>
-          </div>
+        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {cat.cards.map((card) => (
+            <article class="flex flex-col gap-3">
+              <button
+                type="button"
+                class="card-trigger group block w-full text-left cursor-pointer"
+                data-target={card.slug}
+                aria-label={`Открыть карточку: ${card.title}`}
+              >
+                <img
+                  src={card.pngUrl}
+                  alt={card.title}
+                  loading="lazy"
+                  class="w-full aspect-[3/4] object-cover rounded-2xl shadow-[var(--shadow-soft)] bg-cream transition-shadow duration-200 group-hover:shadow-[var(--shadow-soft-lg)]"
+                />
+              </button>
 
-          <a
-            href={card.pngUrl}
-            download
-            class="inline-flex items-center gap-2 self-start text-sm text-sage-700 hover:text-sage-800 transition-colors duration-200 cursor-pointer font-medium"
-          >
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Скачать PNG
-          </a>
-        </article>
-      ))}
-    </div>
+              <h3 class="font-serif text-lg sm:text-xl text-graphite font-medium leading-tight mt-1">
+                {card.title}
+              </h3>
+              <p class="text-sm text-graphite/70 leading-relaxed">{card.description}</p>
 
-    {COPING_CARDS.map((card) => (
-      <dialog
-        id={`dialog-${card.slug}`}
-        class="card-dialog"
-        aria-labelledby={`dialog-title-${card.slug}`}
-      >
-        <div class="dialog-inner">
-          <button
-            type="button"
-            class="dialog-close"
-            aria-label="Закрыть"
-          >
-            <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-
-          <img
-            src={card.pngUrl}
-            alt={card.title}
-            class="dialog-image"
-            id={`dialog-title-${card.slug}`}
-          />
-
-          <a
-            href={card.pngUrl}
-            download
-            class="dialog-download"
-          >
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Скачать PNG
-          </a>
+              <a
+                href={card.pngUrl}
+                download
+                class="inline-flex items-center gap-2 self-start text-sm text-sage-700 hover:text-sage-800 transition-colors duration-200 cursor-pointer font-medium mt-1"
+              >
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Скачать PNG
+              </a>
+            </article>
+          ))}
         </div>
-      </dialog>
+      </div>
     ))}
+
+    <!-- Premium-карточки за кодом -->
+    <div class="flex flex-col gap-8 mt-8" data-premium-hash={PREMIUM_CODE_HASH}>
+      <header class="flex flex-col gap-3 max-w-2xl">
+        <p class="text-accent-deep text-xs tracking-[0.18em] uppercase font-medium">Глубокие опоры · по коду</p>
+        <h3 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight">Премиум-карточки</h3>
+        <p class="text-graphite/70 leading-relaxed">
+          Три фундаментальные карточки для долгой работы с тревогой — для тех, кто хочет глубже. Код получишь у Кристины в Telegram.
+        </p>
+      </header>
+
+      <!-- Locked state -->
+      <div id="premium-locked" class="flex flex-col gap-4 p-6 sm:p-8 rounded-3xl border border-sage-200 bg-sage-50 max-w-md">
+        <label for="premium-code-input" class="text-sm font-medium text-graphite">
+          Введи код доступа
+        </label>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <input
+            type="text"
+            id="premium-code-input"
+            placeholder="например, kris2026"
+            autocomplete="off"
+            class="flex-1 px-4 py-3 rounded-full border border-sage-200 bg-cream text-graphite placeholder-graphite-muted focus:outline-none focus:border-sage-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage-700 text-base"
+          />
+          <button
+            type="button"
+            id="premium-submit"
+            class="px-5 py-3 rounded-full bg-sage-700 text-cream hover:bg-sage-800 transition-colors duration-200 cursor-pointer font-medium text-sm whitespace-nowrap"
+          >
+            Открыть
+          </button>
+        </div>
+        <p id="premium-error" class="text-sm text-accent-deep hidden">
+          Код не подошёл. Проверь, нет ли лишних пробелов, или попроси у Кристины свежий код.
+        </p>
+        <p class="text-sm text-graphite/60">
+          Нет кода?
+          <a
+            href="https://t.me/Kris_tellme?text=Здравствуйте,%20Кристина!%20Хочу%20получить%20код%20на%20премиум-карточки."
+            target="_blank"
+            rel="noopener"
+            class="text-sage-700 hover:text-sage-800 underline transition-colors duration-200"
+          >
+            Написать в Telegram
+          </a>
+        </p>
+      </div>
+
+      <!-- Unlocked state -->
+      <div id="premium-unlocked" class="hidden grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {PREMIUM_CARDS.map((card) => (
+          <article class="flex flex-col gap-3">
+            <button
+              type="button"
+              class="card-trigger group block w-full text-left cursor-pointer"
+              data-target={card.slug}
+              aria-label={`Открыть карточку: ${card.title}`}
+            >
+              <img
+                src={card.pngUrl}
+                alt={card.title}
+                loading="lazy"
+                class="w-full aspect-[3/4] object-cover rounded-2xl shadow-[var(--shadow-soft)] bg-cream transition-shadow duration-200 group-hover:shadow-[var(--shadow-soft-lg)]"
+              />
+            </button>
+
+            <h3 class="font-serif text-lg sm:text-xl text-graphite font-medium leading-tight mt-1">
+              {card.title}
+            </h3>
+            <p class="text-sm text-graphite/70 leading-relaxed">{card.description}</p>
+
+            <a
+              href={card.pngUrl}
+              download
+              class="inline-flex items-center gap-2 self-start text-sm text-sage-700 hover:text-sage-800 transition-colors duration-200 cursor-pointer font-medium mt-1"
+            >
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Скачать PNG
+            </a>
+          </article>
+        ))}
+      </div>
+    </div>
   </div>
+
+  <!-- Lightbox-диалоги для всех 18 карточек -->
+  {allCards.map((card) => (
+    <dialog
+      id={`dialog-${card.slug}`}
+      class="card-dialog"
+      aria-labelledby={`dialog-title-${card.slug}`}
+    >
+      <div class="dialog-inner">
+        <button
+          type="button"
+          class="dialog-close"
+          aria-label="Закрыть"
+        >
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+
+        <img
+          src={card.pngUrl}
+          alt={card.title}
+          class="dialog-image"
+          id={`dialog-title-${card.slug}`}
+        />
+
+        <a
+          href={card.pngUrl}
+          download
+          class="dialog-download"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Скачать PNG
+        </a>
+      </div>
+    </dialog>
+  ))}
 </section>
 
 <style>
@@ -136,17 +242,6 @@ import { COPING_CARDS } from "../lib/constants";
     border-radius: 1rem;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     touch-action: pinch-zoom;
-  }
-
-  @media (min-width: 640px) {
-    .dialog-inner {
-      gap: 1rem;
-      padding: 2rem 1rem;
-    }
-    .dialog-image {
-      max-width: min(90vw, 700px);
-      max-height: 82vh;
-    }
   }
 
   .dialog-close {
@@ -201,6 +296,17 @@ import { COPING_CARDS } from "../lib/constants";
     outline-offset: 2px;
   }
 
+  @media (min-width: 640px) {
+    .dialog-inner {
+      gap: 1rem;
+      padding: 2rem 1rem;
+    }
+    .dialog-image {
+      max-width: min(90vw, 700px);
+      max-height: 82vh;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .card-dialog::backdrop {
       backdrop-filter: none;
@@ -209,7 +315,7 @@ import { COPING_CARDS } from "../lib/constants";
 </style>
 
 <script>
-  // Открытие карточки по клику на превью
+  // Lightbox: открыть карточку по клику
   document.querySelectorAll<HTMLButtonElement>(".card-trigger").forEach((btn) => {
     btn.addEventListener("click", () => {
       const slug = btn.getAttribute("data-target");
@@ -234,5 +340,71 @@ import { COPING_CARDS } from "../lib/constants";
         dialog.close();
       }
     });
+  });
+
+  // Premium gate: проверка кода через SHA-256
+  const premiumContainer = document.querySelector<HTMLElement>("[data-premium-hash]");
+  const lockedEl = document.getElementById("premium-locked");
+  const unlockedEl = document.getElementById("premium-unlocked");
+  const input = document.getElementById("premium-code-input") as HTMLInputElement | null;
+  const submitBtn = document.getElementById("premium-submit");
+  const errorEl = document.getElementById("premium-error");
+
+  const STORAGE_KEY = "kris-premium-unlocked";
+
+  function unlock() {
+    if (lockedEl) lockedEl.classList.add("hidden");
+    if (unlockedEl) {
+      unlockedEl.classList.remove("hidden");
+    }
+  }
+
+  async function sha256Hex(text: string): Promise<string> {
+    const bytes = new TextEncoder().encode(text);
+    const buf = await crypto.subtle.digest("SHA-256", bytes);
+    return Array.from(new Uint8Array(buf))
+      .map((b) => b.toString(16).padStart(2, "0"))
+      .join("");
+  }
+
+  async function checkCode() {
+    if (!input || !premiumContainer) return;
+    const expected = premiumContainer.getAttribute("data-premium-hash") || "";
+    const value = input.value.trim().toLowerCase();
+    if (!value) return;
+
+    const hash = await sha256Hex(value);
+    if (hash === expected) {
+      try {
+        localStorage.setItem(STORAGE_KEY, "1");
+      } catch (_) {
+        // localStorage недоступен (приватный режим) — игнорируем
+      }
+      unlock();
+    } else {
+      errorEl?.classList.remove("hidden");
+      input.classList.add("border-accent-deep");
+    }
+  }
+
+  // Авто-разлок при повторном визите
+  try {
+    if (localStorage.getItem(STORAGE_KEY) === "1") {
+      unlock();
+    }
+  } catch (_) {
+    // ignore
+  }
+
+  submitBtn?.addEventListener("click", checkCode);
+  input?.addEventListener("keydown", (event) => {
+    if ((event as KeyboardEvent).key === "Enter") {
+      event.preventDefault();
+      checkCode();
+    }
+  });
+  input?.addEventListener("input", () => {
+    errorEl?.classList.add("hidden");
+    input.classList.remove("border-accent-deep");
   });
 </script>
