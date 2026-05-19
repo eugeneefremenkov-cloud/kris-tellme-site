@@ -104,6 +104,10 @@ const conditions = [
 
 const faq = [
   {
+    q: "Что значит «предзаказ» у самостоятельного тарифа?",
+    a: "Сейчас я записываю видео-курсы для обеих программ. Старт — июль 2026. До этого момента можно купить курс по цене предзаказа (3 900 ₽ вместо 5 900 ₽). Доступ к плейлисту откроется в день старта, и я уведомлю каждого, кто оплатил. Если в день старта передумаешь — верну деньги без вопросов.",
+  },
+  {
     q: "Чем самостоятельный тариф отличается от персонального?",
     a: "Самостоятельный — это видео-курс, который ты смотришь в своём темпе, плюс рабочая тетрадь с упражнениями. Подходит, если бюджет ограничен или хочется сначала «попробовать на себе». Персональный тариф = тот же видео-курс + 4 живые встречи со мной, индивидуальный план под твою историю и безлимитная переписка. Подходит, когда тревога сильная и хочется поддержки рядом.",
   },
@@ -282,10 +286,26 @@ const programs = [PROGRAMS.prenatal, PROGRAMS.postnatal];
 
             <!-- Self tariff content -->
             <div data-tariff-content="self" class="flex flex-col gap-4 flex-1">
-              <div class="flex items-baseline gap-2">
-                <p class="font-serif text-3xl text-sage-800 font-medium">{program.self.price}</p>
-                <p class="text-sm text-graphite-muted">{program.self.pricePer}</p>
-              </div>
+              {program.self.preorder?.active ? (
+                <>
+                  <div class="flex flex-col gap-1.5">
+                    <span class="self-start text-[10px] tracking-[0.18em] uppercase font-medium px-2.5 py-1 rounded-full bg-accent/15 text-accent-deep">
+                      Предзаказ
+                    </span>
+                    <div class="flex items-baseline gap-2">
+                      <p class="font-serif text-3xl text-sage-800 font-medium">{program.self.preorder.price}</p>
+                      <p class="text-sm text-graphite-muted line-through">{program.self.price}</p>
+                    </div>
+                    <p class="text-xs text-graphite/65 leading-relaxed">{program.self.preorder.note}</p>
+                  </div>
+                </>
+              ) : (
+                <div class="flex items-baseline gap-2">
+                  <p class="font-serif text-3xl text-sage-800 font-medium">{program.self.price}</p>
+                  <p class="text-sm text-graphite-muted">{program.self.pricePer}</p>
+                </div>
+              )}
+
               <ul class="flex flex-col gap-2 text-sm text-graphite/80 leading-relaxed flex-1">
                 {program.self.includes.map((line) => (
                   <li class="flex gap-2">
@@ -297,12 +317,14 @@ const programs = [PROGRAMS.prenatal, PROGRAMS.postnatal];
                 ))}
               </ul>
               <a
-                href={`${CONTACT.telegramLink}?text=${encodeURIComponent(program.self.tgMessage)}`}
+                href={`${CONTACT.telegramLink}?text=${encodeURIComponent(
+                  program.self.preorder?.active ? program.self.preorder.tgMessage : program.self.tgMessage,
+                )}`}
                 target="_blank"
                 rel="noopener"
                 class="inline-flex items-center justify-center gap-2 self-start mt-2 px-5 py-3 rounded-full bg-sage-700 text-cream hover:bg-sage-800 transition-colors duration-200 cursor-pointer font-medium text-sm"
               >
-                Записаться
+                {program.self.preorder?.active ? "Забронировать предзаказ" : "Записаться"}
               </a>
             </div>
 
