@@ -1,15 +1,11 @@
 ---
 import { Image } from "astro:assets";
-import { BRAND } from "../lib/constants";
 import kristinaHero from "../assets/images/kristina-hero.jpg";
 ---
 
 <section class="w-full px-4 sm:px-8 pt-8 pb-16 sm:pt-16 sm:pb-24">
   <div class="max-w-6xl mx-auto grid gap-10 sm:gap-16 sm:grid-cols-2 sm:items-center">
     <div class="order-2 sm:order-1 flex flex-col gap-6">
-      <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">
-        {BRAND.title}
-      </p>
       <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl leading-[1.1] text-graphite font-medium">
         Помогаю женщинам спокойно встретить роды
       </h1>
@@ -33,7 +29,7 @@ import kristinaHero from "../assets/images/kristina-hero.jpg";
         format="webp"
         quality={82}
         loading="eager"
-        class="w-full aspect-[3/4] object-cover rounded-3xl shadow-[var(--shadow-soft-lg)]"
+        class="w-full aspect-square object-cover object-top rounded-3xl shadow-[var(--shadow-soft-lg)]"
       />
     </div>
   </div>
