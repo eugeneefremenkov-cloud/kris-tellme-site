@@ -1,14 +1,14 @@
 ---
-import { CARD_CATEGORIES, FREE_CARDS, PREMIUM_CARDS, PREMIUM_CODE_HASH } from "../lib/constants";
+import { CARD_CATEGORIES, FREE_CARDS, SCHOOL_CARDS, SCHOOL_CODE_HASH } from "../lib/constants";
 
-// Группируем FREE_CARDS по category
-const cardsByCategory = CARD_CATEGORIES.map((cat) => ({
+// Группируем SCHOOL_CARDS по category
+const schoolByCategory = CARD_CATEGORIES.map((cat) => ({
   ...cat,
-  cards: FREE_CARDS.filter((c) => c.category === cat.slug),
+  cards: SCHOOL_CARDS.filter((c) => c.category === cat.slug),
 }));
 
-// Объединённый список для модалок (free + premium)
-const allCards = [...FREE_CARDS, ...PREMIUM_CARDS];
+// Объединённый список для модалок (free + school)
+const allCards = [...FREE_CARDS, ...SCHOOL_CARDS];
 ---
 
 <section id="cards" class="w-full px-4 sm:px-8 py-16 sm:py-24">
@@ -21,91 +21,85 @@ const allCards = [...FREE_CARDS, ...PREMIUM_CARDS];
       </p>
     </header>
 
-    {cardsByCategory.map((cat) => (
-      <div class="flex flex-col gap-8">
-        <header class="flex flex-col gap-2 max-w-2xl">
-          <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">{cat.title}</p>
-          <p class="text-graphite/70 leading-relaxed">{cat.description}</p>
-        </header>
+    <!-- 3 открытые карточки — доступ без кода -->
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {FREE_CARDS.map((card) => (
+        <article class="flex flex-col gap-3">
+          <button
+            type="button"
+            class="card-trigger group block w-full text-left cursor-pointer"
+            data-target={card.slug}
+            aria-label={`Открыть карточку: ${card.title}`}
+          >
+            <img
+              src={card.pngUrl}
+              alt={card.title}
+              loading="lazy"
+              class="w-full aspect-[3/4] object-cover rounded-2xl shadow-[var(--shadow-soft)] bg-cream transition-shadow duration-200 group-hover:shadow-[var(--shadow-soft-lg)]"
+            />
+          </button>
 
-        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {cat.cards.map((card) => (
-            <article class="flex flex-col gap-3">
-              <button
-                type="button"
-                class="card-trigger group block w-full text-left cursor-pointer"
-                data-target={card.slug}
-                aria-label={`Открыть карточку: ${card.title}`}
-              >
-                <img
-                  src={card.pngUrl}
-                  alt={card.title}
-                  loading="lazy"
-                  class="w-full aspect-[3/4] object-cover rounded-2xl shadow-[var(--shadow-soft)] bg-cream transition-shadow duration-200 group-hover:shadow-[var(--shadow-soft-lg)]"
-                />
-              </button>
+          <h3 class="font-serif text-lg sm:text-xl text-graphite font-medium leading-tight mt-1">
+            {card.title}
+          </h3>
+          <p class="text-sm text-graphite/70 leading-relaxed">{card.description}</p>
 
-              <h3 class="font-serif text-lg sm:text-xl text-graphite font-medium leading-tight mt-1">
-                {card.title}
-              </h3>
-              <p class="text-sm text-graphite/70 leading-relaxed">{card.description}</p>
+          <a
+            href={card.pngUrl}
+            download
+            class="inline-flex items-center gap-2 self-start text-sm text-sage-700 hover:text-sage-800 transition-colors duration-200 cursor-pointer font-medium mt-1"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Скачать PNG
+          </a>
+        </article>
+      ))}
+    </div>
 
-              <a
-                href={card.pngUrl}
-                download
-                class="inline-flex items-center gap-2 self-start text-sm text-sage-700 hover:text-sage-800 transition-colors duration-200 cursor-pointer font-medium mt-1"
-              >
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                Скачать PNG
-              </a>
-            </article>
-          ))}
-        </div>
-      </div>
-    ))}
-
-    <!-- Premium-карточки за кодом -->
-    <div class="flex flex-col gap-8 mt-8" data-premium-hash={PREMIUM_CODE_HASH}>
+    <!-- Школа Осознанного материнства — за кодом -->
+    <div class="flex flex-col gap-8 pt-12 sm:pt-16 border-t border-sage-100" data-school-hash={SCHOOL_CODE_HASH}>
       <header class="flex flex-col gap-3 max-w-2xl">
-        <p class="text-accent-deep text-xs tracking-[0.18em] uppercase font-medium">Глубокие опоры · по коду</p>
-        <h3 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight">Премиум-карточки</h3>
+        <p class="text-accent-deep text-xs tracking-[0.18em] uppercase font-medium">Школа Осознанного материнства</p>
+        <h3 class="font-serif text-2xl sm:text-3xl text-graphite font-medium leading-tight">
+          Ещё 15 карточек — для участниц школы
+        </h3>
         <p class="text-graphite/70 leading-relaxed">
-          Три фундаментальные карточки для долгой работы с тревогой — для тех, кто хочет глубже. Код получишь у Кристины в Telegram.
+          Пять тем: страх родов, принятие тела, окружение и отношения, изменения в жизни, период неопределённости. По три карточки в каждой. Доступ открыт участницам школы «Первые 1000 дней жизни».
         </p>
       </header>
 
       <!-- Locked state -->
-      <div id="premium-locked" class="flex flex-col gap-4 p-6 sm:p-8 rounded-3xl border border-sage-200 bg-sage-50 max-w-md">
-        <label for="premium-code-input" class="text-sm font-medium text-graphite">
-          Введи код доступа
+      <div id="school-locked" class="flex flex-col gap-4 p-6 sm:p-8 rounded-3xl border border-sage-200 bg-sage-50 max-w-md">
+        <label for="school-code-input" class="text-sm font-medium text-graphite">
+          Введи код участницы
         </label>
         <div class="flex flex-col sm:flex-row gap-3">
           <input
             type="text"
-            id="premium-code-input"
-            placeholder="например, kris2026"
+            id="school-code-input"
+            placeholder="код от Кристины"
             autocomplete="off"
             class="flex-1 px-4 py-3 rounded-full border border-sage-200 bg-cream text-graphite placeholder-graphite-muted focus:outline-none focus:border-sage-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sage-700 text-base"
           />
           <button
             type="button"
-            id="premium-submit"
+            id="school-submit"
             class="px-5 py-3 rounded-full bg-sage-700 text-cream hover:bg-sage-800 transition-colors duration-200 cursor-pointer font-medium text-sm whitespace-nowrap"
           >
             Открыть
           </button>
         </div>
-        <p id="premium-error" class="text-sm text-accent-deep hidden">
+        <p id="school-error" class="text-sm text-accent-deep hidden">
           Код не подошёл. Проверь, нет ли лишних пробелов, или попроси у Кристины свежий код.
         </p>
         <p class="text-sm text-graphite/60">
-          Нет кода?
+          Хочешь попасть в школу?
           <a
-            href="https://t.me/Kris_tellme?text=Здравствуйте,%20Кристина!%20Хочу%20получить%20код%20на%20премиум-карточки."
+            href="https://t.me/Kris_tellme?text=Здравствуйте,%20Кристина!%20Хочу%20узнать%20про%20школу%20Осознанного%20материнства."
             target="_blank"
             rel="noopener"
             class="text-sage-700 hover:text-sage-800 underline transition-colors duration-200"
@@ -115,42 +109,53 @@ const allCards = [...FREE_CARDS, ...PREMIUM_CARDS];
         </p>
       </div>
 
-      <!-- Unlocked state -->
-      <div id="premium-unlocked" class="hidden grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {PREMIUM_CARDS.map((card) => (
-          <article class="flex flex-col gap-3">
-            <button
-              type="button"
-              class="card-trigger group block w-full text-left cursor-pointer"
-              data-target={card.slug}
-              aria-label={`Открыть карточку: ${card.title}`}
-            >
-              <img
-                src={card.pngUrl}
-                alt={card.title}
-                loading="lazy"
-                class="w-full aspect-[3/4] object-cover rounded-2xl shadow-[var(--shadow-soft)] bg-cream transition-shadow duration-200 group-hover:shadow-[var(--shadow-soft-lg)]"
-              />
-            </button>
+      <!-- Unlocked state — 5 категорий по 3 карточки -->
+      <div id="school-unlocked" class="hidden flex-col gap-16">
+        {schoolByCategory.map((cat) => (
+          <div class="flex flex-col gap-8">
+            <header class="flex flex-col gap-2 max-w-2xl">
+              <p class="text-sage-700 text-xs tracking-[0.18em] uppercase font-medium">{cat.title}</p>
+              <p class="text-graphite/70 leading-relaxed">{cat.description}</p>
+            </header>
 
-            <h3 class="font-serif text-lg sm:text-xl text-graphite font-medium leading-tight mt-1">
-              {card.title}
-            </h3>
-            <p class="text-sm text-graphite/70 leading-relaxed">{card.description}</p>
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {cat.cards.map((card) => (
+                <article class="flex flex-col gap-3">
+                  <button
+                    type="button"
+                    class="card-trigger group block w-full text-left cursor-pointer"
+                    data-target={card.slug}
+                    aria-label={`Открыть карточку: ${card.title}`}
+                  >
+                    <img
+                      src={card.pngUrl}
+                      alt={card.title}
+                      loading="lazy"
+                      class="w-full aspect-[3/4] object-cover rounded-2xl shadow-[var(--shadow-soft)] bg-cream transition-shadow duration-200 group-hover:shadow-[var(--shadow-soft-lg)]"
+                    />
+                  </button>
 
-            <a
-              href={card.pngUrl}
-              download
-              class="inline-flex items-center gap-2 self-start text-sm text-sage-700 hover:text-sage-800 transition-colors duration-200 cursor-pointer font-medium mt-1"
-            >
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-              </svg>
-              Скачать PNG
-            </a>
-          </article>
+                  <h3 class="font-serif text-lg sm:text-xl text-graphite font-medium leading-tight mt-1">
+                    {card.title}
+                  </h3>
+                  <p class="text-sm text-graphite/70 leading-relaxed">{card.description}</p>
+
+                  <a
+                    href={card.pngUrl}
+                    download
+                    class="inline-flex items-center gap-2 self-start text-sm text-sage-700 hover:text-sage-800 transition-colors duration-200 cursor-pointer font-medium mt-1"
+                  >
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7 10 12 15 17 10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Скачать PNG
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -342,20 +347,21 @@ const allCards = [...FREE_CARDS, ...PREMIUM_CARDS];
     });
   });
 
-  // Premium gate: проверка кода через SHA-256
-  const premiumContainer = document.querySelector<HTMLElement>("[data-premium-hash]");
-  const lockedEl = document.getElementById("premium-locked");
-  const unlockedEl = document.getElementById("premium-unlocked");
-  const input = document.getElementById("premium-code-input") as HTMLInputElement | null;
-  const submitBtn = document.getElementById("premium-submit");
-  const errorEl = document.getElementById("premium-error");
+  // School gate: проверка кода через SHA-256
+  const schoolContainer = document.querySelector<HTMLElement>("[data-school-hash]");
+  const lockedEl = document.getElementById("school-locked");
+  const unlockedEl = document.getElementById("school-unlocked");
+  const input = document.getElementById("school-code-input") as HTMLInputElement | null;
+  const submitBtn = document.getElementById("school-submit");
+  const errorEl = document.getElementById("school-error");
 
-  const STORAGE_KEY = "kris-premium-unlocked";
+  const STORAGE_KEY = "kris-school-unlocked";
 
   function unlock() {
     if (lockedEl) lockedEl.classList.add("hidden");
     if (unlockedEl) {
       unlockedEl.classList.remove("hidden");
+      unlockedEl.classList.add("flex");
     }
   }
 
@@ -368,8 +374,8 @@ const allCards = [...FREE_CARDS, ...PREMIUM_CARDS];
   }
 
   async function checkCode() {
-    if (!input || !premiumContainer) return;
-    const expected = premiumContainer.getAttribute("data-premium-hash") || "";
+    if (!input || !schoolContainer) return;
+    const expected = schoolContainer.getAttribute("data-school-hash") || "";
     const value = input.value.trim().toLowerCase();
     if (!value) return;
 

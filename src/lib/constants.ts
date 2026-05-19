@@ -32,12 +32,12 @@ export const SERVICES = {
   },
 };
 
-// Категории бесплатных копинг-карточек (в порядке вывода на сайте)
+// Категории школьных копинг-карточек (5 шт, по 3 карточки в каждой).
 export const CARD_CATEGORIES = [
   {
     slug: "strah-rodov",
     title: "Страх родов",
-    description: "Боль, контроль, план Б — три опоры для самых частых страхов.",
+    description: "Контроль, план Б, базовая опора — три якоря для самых частых страхов.",
   },
   {
     slug: "prinyatie-tela",
@@ -57,21 +57,36 @@ export const CARD_CATEGORIES = [
   {
     slug: "neopredelennost",
     title: "В период неопределённости",
-    description: "Перед анализом, после тревожного приёма, в ожидании результата.",
+    description: "Перед анализом, ожидание результатов, базовая техника при острой тревоге.",
   },
 ] as const;
 
-// 15 бесплатных карточек по 3 на категорию.
-// Slug и название должны совпадать со scripts/cards.config.mjs.
+// 3 открытые копинг-карточки — доступны всем без кода.
 export const FREE_CARDS = [
-  // Страх родов
   {
     slug: "strah-boli",
-    category: "strah-rodov",
     title: "Боль — не враг, а спутник",
     description: "Когда мысли о боли в родах становятся навязчивыми.",
     pngUrl: "/cards/strah-boli.png",
   },
+  {
+    slug: "telo-menyaetsya",
+    title: "Моё тело меняется",
+    description: "Когда смотришь в зеркало и не узнаёшь себя.",
+    pngUrl: "/cards/telo-menyaetsya.png",
+  },
+  {
+    slug: "nepravilnyy-diagnoz",
+    title: "Услышала тревожное от врача",
+    description: "Когда после приёма голова кружится от страшных слов.",
+    pngUrl: "/cards/nepravilnyy-diagnoz.png",
+  },
+] as const;
+
+// 15 карточек школы — доступ по коду.
+// Сгруппированы по category (см. CARD_CATEGORIES).
+export const SCHOOL_CARDS = [
+  // Страх родов
   {
     slug: "otpustit-kontrol",
     category: "strah-rodov",
@@ -86,14 +101,14 @@ export const FREE_CARDS = [
     description: "Если боишься, что «всё пойдёт не так» — вот опора.",
     pngUrl: "/cards/plan-b-bezopasen.png",
   },
-  // Принятие тела
   {
-    slug: "telo-menyaetsya",
-    category: "prinyatie-tela",
-    title: "Моё тело меняется",
-    description: "Когда смотришь в зеркало и не узнаёшь себя.",
-    pngUrl: "/cards/telo-menyaetsya.png",
+    slug: "snizhenie-straha-rodov",
+    category: "strah-rodov",
+    title: "Снижение страха перед родами",
+    description: "Базовая опора. Перенастраивает «роды страшные» в «роды естественные».",
+    pngUrl: "/cards/snizhenie-straha-rodov.png",
   },
+  // Принятие тела
   {
     slug: "prinyatie-vneshnih-izmeneniy",
     category: "prinyatie-tela",
@@ -107,6 +122,13 @@ export const FREE_CARDS = [
     title: "Тело после родов — оно справляется",
     description: "В первые недели и месяцы, когда восстановление кажется бесконечным.",
     pngUrl: "/cards/telo-posle-rodov.png",
+  },
+  {
+    slug: "vstrecha-ne-ispytanie",
+    category: "prinyatie-tela",
+    title: "Встреча, а не испытание",
+    description: "Образ родов как первой встречи с малышом — для дней, когда настрой проседает.",
+    pngUrl: "/cards/vstrecha-ne-ispytanie.png",
   },
   // Окружение и отношения
   {
@@ -161,47 +183,25 @@ export const FREE_CARDS = [
     pngUrl: "/cards/pered-analizom.png",
   },
   {
-    slug: "nepravilnyy-diagnoz",
-    category: "neopredelennost",
-    title: "Услышала тревожное от врача",
-    description: "Когда после приёма голова кружится от страшных слов.",
-    pngUrl: "/cards/nepravilnyy-diagnoz.png",
-  },
-  {
     slug: "ozhidanie-rezultatov",
     category: "neopredelennost",
     title: "Ждать результаты",
     description: "В дни между сдачей и получением результата.",
     pngUrl: "/cards/ozhidanie-rezultatov.png",
   },
-] as const;
-
-// 3 премиум-карточки за кодом — глубокие фундаментальные опоры.
-// SHA-256 от ACCESS_CODE = «kris2026» (поменять — обновить хеш ниже).
-export const PREMIUM_CARDS = [
-  {
-    slug: "snizhenie-straha-rodov",
-    title: "Снижение страха перед родами",
-    description: "Базовая опора. Перенастраивает «роды страшные» в «роды естественные».",
-    pngUrl: "/cards/snizhenie-straha-rodov.png",
-  },
   {
     slug: "kogda-nakryvayet-trevoga",
+    category: "neopredelennost",
     title: "Когда накрывает тревога",
     description: "Скорая помощь в моменте: дыхание 4-7-8, заземление, фраза-якорь.",
     pngUrl: "/cards/kogda-nakryvayet-trevoga.png",
   },
-  {
-    slug: "vstrecha-ne-ispytanie",
-    title: "Встреча, а не испытание",
-    description: "Образ родов как первой встречи с малышом — для дней, когда настрой проседает.",
-    pngUrl: "/cards/vstrecha-ne-ispytanie.png",
-  },
 ] as const;
 
-// SHA-256(«kris2026»). Чтобы сменить код — пересчитай хеш:
+// SHA-256(«1000days») — код участниц Школы Осознанного материнства.
+// Чтобы сменить код — пересчитай хеш:
 // node -e "console.log(require('crypto').createHash('sha256').update('НОВЫЙКОД').digest('hex'))"
-export const PREMIUM_CODE_HASH =
-  "9bb0de1b64f17c8a46310ba167b55f3f97c34838ecc68c2359c084436dca9c88";
+export const SCHOOL_CODE_HASH =
+  "1b650c9b878e955b7bac036fd9817ca98edb7a18863b09e46639306036b7f2ea";
 
 export const DISCLAIMER = "Материалы носят информационный характер и не заменяют медицинскую помощь.";
