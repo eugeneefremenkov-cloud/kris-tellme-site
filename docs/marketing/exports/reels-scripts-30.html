@@ -1,0 +1,1519 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>30 сценариев Reels — КРИС, СКАЖИ МНЕ 🕊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" />
+<style>
+  :root {
+    --sage-50:#F4F7F3;
+    --sage-100:#E3EBE0;
+    --sage-200:#C7D6C1;
+    --sage-300:#A6BD9D;
+    --sage-500:#88A37D;
+    --sage-600:#6B8A60;
+    --sage-700:#556E4C;
+    --sage-800:#45593E;
+    --cream:#FAF7F1;
+    --cream-deep:#F5EFE4;
+    --graphite:#2A2A28;
+    --graphite-muted:#6B6B66;
+    --accent:#C8A97E;
+    --accent-deep:#A8895E;
+    --serif:"Cormorant Garamond", Georgia, serif;
+    --sans:"Inter", system-ui, sans-serif;
+    --shadow-soft:0 4px 16px rgba(85,110,76,0.08);
+    --shadow-soft-lg:0 8px 32px rgba(85,110,76,0.10);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    color: var(--graphite);
+    background: var(--cream);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--serif);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--graphite);
+    margin: 0;
+  }
+  a { color: var(--sage-700); text-decoration: none; }
+  a:hover { color: var(--sage-800); text-decoration: underline; }
+  ::selection { background: var(--sage-200); color: var(--sage-900); }
+
+  /* HEADER */
+  header.page {
+    background: linear-gradient(180deg, var(--cream) 0%, var(--cream-deep) 100%);
+    padding: 48px 24px 56px;
+    text-align: center;
+    border-bottom: 1px solid var(--sage-100);
+  }
+  header.page .brand {
+    font-family: var(--serif);
+    font-size: 18px;
+    color: var(--sage-700);
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+  }
+  header.page h1 {
+    font-size: 38px;
+    line-height: 1.1;
+    margin: 0 0 16px;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  header.page p.lead {
+    color: var(--graphite-muted);
+    max-width: 560px;
+    margin: 0 auto;
+    font-size: 16px;
+  }
+  header.page .meta {
+    margin-top: 24px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage-700);
+  }
+  @media (min-width: 768px) {
+    header.page { padding: 80px 32px; }
+    header.page h1 { font-size: 56px; }
+  }
+
+  /* LAYOUT */
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+  @media (min-width: 768px) {
+    main { padding: 48px 32px 120px; }
+  }
+
+  /* OGLAVLENIE */
+  .toc {
+    background: var(--sage-50);
+    border: 1px solid var(--sage-100);
+    border-radius: 24px;
+    padding: 24px;
+    margin-bottom: 48px;
+  }
+  .toc h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--sage-700);
+    font-family: var(--sans);
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: toc;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  @media (min-width: 640px) {
+    .toc-list { grid-template-columns: 1fr 1fr; gap: 4px 24px; }
+  }
+  .toc-list li {
+    counter-increment: toc;
+    padding-left: 36px;
+    position: relative;
+  }
+  .toc-list li::before {
+    content: counter(toc, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 4px;
+    font-family: var(--serif);
+    font-size: 14px;
+    color: var(--sage-500);
+    width: 28px;
+  }
+  .toc-list a {
+    display: block;
+    padding: 6px 0;
+    font-size: 14px;
+    line-height: 1.4;
+    border-bottom: 1px solid transparent;
+  }
+  .toc-list a:hover {
+    color: var(--sage-800);
+    text-decoration: none;
+    border-bottom-color: var(--sage-200);
+  }
+  .toc-section-label {
+    grid-column: 1 / -1;
+    margin: 16px 0 4px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    font-weight: 600;
+  }
+  .toc-section-label:first-child { margin-top: 0; }
+
+  /* SECTION DIVIDER */
+  .section-divider {
+    margin: 64px 0 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--sage-100);
+  }
+  .section-divider p.eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent-deep);
+    font-weight: 600;
+    margin: 0 0 8px;
+  }
+  .section-divider h2 {
+    font-size: 28px;
+    line-height: 1.2;
+  }
+  .section-divider p.note {
+    color: var(--graphite-muted);
+    font-size: 14px;
+    margin-top: 6px;
+  }
+
+  /* SCENARIO CARD */
+  .reel {
+    margin-bottom: 32px;
+    padding: 28px;
+    background: var(--cream-deep);
+    border: 1px solid var(--sage-100);
+    border-radius: 24px;
+    position: relative;
+    page-break-inside: avoid;
+  }
+  @media (min-width: 768px) {
+    .reel { padding: 36px; }
+  }
+  .reel .number {
+    font-family: var(--serif);
+    font-size: 64px;
+    line-height: 0.9;
+    color: var(--sage-300);
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    user-select: none;
+  }
+  .reel h3 {
+    font-size: 24px;
+    line-height: 1.25;
+    margin: 0 60px 8px 0;
+  }
+  .reel .reel-meta {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sage-700);
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+  .reel .reel-meta .dot {
+    display: inline-block;
+    margin: 0 8px;
+    color: var(--sage-300);
+  }
+
+  .beat {
+    margin: 20px 0;
+    padding-left: 16px;
+    border-left: 2px solid var(--sage-200);
+  }
+  .beat .beat-label {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage-700);
+    margin-bottom: 8px;
+    display: block;
+  }
+  .beat blockquote {
+    margin: 0 0 8px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--graphite);
+    line-height: 1.5;
+  }
+  .beat blockquote::before { content: "«"; color: var(--sage-500); margin-right: 1px; }
+  .beat blockquote::after { content: "»"; color: var(--sage-500); margin-left: 1px; }
+  .beat .visual {
+    font-size: 13px;
+    color: var(--graphite-muted);
+    margin: 4px 0;
+  }
+  .beat .visual strong {
+    color: var(--graphite);
+    font-weight: 500;
+  }
+  .beat ul {
+    margin: 6px 0 0;
+    padding-left: 18px;
+    font-size: 14px;
+    color: var(--graphite);
+  }
+  .beat ul li { margin-bottom: 2px; }
+
+  .caption-block {
+    margin-top: 28px;
+    padding: 20px;
+    background: var(--cream);
+    border: 1px dashed var(--sage-300);
+    border-radius: 16px;
+    position: relative;
+  }
+  .caption-block .caption-label {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage-700);
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .caption-block .copy-btn {
+    background: var(--sage-700);
+    color: var(--cream);
+    border: none;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: background 200ms ease;
+    text-transform: none;
+    letter-spacing: 0.04em;
+  }
+  .caption-block .copy-btn:hover { background: var(--sage-800); }
+  .caption-block .copy-btn.copied { background: var(--sage-500); }
+  .caption-block .caption-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--graphite);
+    white-space: pre-wrap;
+    font-family: var(--sans);
+  }
+  .caption-block .hashtags {
+    font-size: 13px;
+    color: var(--sage-700);
+    margin-top: 10px;
+    word-spacing: 4px;
+  }
+
+  /* PROD NOTES */
+  .notes {
+    margin-top: 80px;
+    padding: 32px;
+    background: var(--sage-50);
+    border: 1px solid var(--sage-100);
+    border-radius: 24px;
+  }
+  .notes h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+  .notes .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sage-700);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .notes h3 {
+    font-size: 18px;
+    margin: 24px 0 8px;
+  }
+  .notes ul {
+    margin: 8px 0 0;
+    padding-left: 20px;
+    font-size: 14px;
+    color: var(--graphite);
+  }
+  .notes ul li { margin-bottom: 6px; }
+  .notes ul li strong { color: var(--graphite); }
+
+  footer.page {
+    margin-top: 64px;
+    padding: 32px 24px;
+    text-align: center;
+    color: var(--graphite-muted);
+    font-size: 13px;
+    border-top: 1px solid var(--sage-100);
+  }
+  footer.page p { margin: 4px 0; }
+  footer.page .brand {
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--sage-700);
+    margin-bottom: 8px;
+  }
+
+  /* BACK TO TOP */
+  .back-top {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    background: var(--sage-700);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    box-shadow: var(--shadow-soft);
+    transition: opacity 200ms ease, background 200ms ease;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 50;
+  }
+  .back-top.visible { opacity: 1; pointer-events: auto; }
+  .back-top:hover { background: var(--sage-800); text-decoration: none; }
+
+  /* PRINT */
+  @media print {
+    body { background: white; color: black; }
+    header.page, .toc, .notes, .back-top, .copy-btn { display: none !important; }
+    .reel { box-shadow: none; border-color: #ddd; background: white; page-break-inside: avoid; margin-bottom: 16px; }
+    .caption-block { background: #f6f4ee; border-color: #ccc; }
+    main { padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page">
+  <p class="brand">КРИС, СКАЖИ МНЕ <span aria-hidden="true">🕊</span></p>
+  <h1>30 сценариев Reels</h1>
+  <p class="lead">Готовый контент-инвентарь для Instagram: hook, развёртка, финал, текст на экране и подпись к посту. На 10 недель публикаций при 3 рилс в неделю.</p>
+  <p class="meta">Май 2026 · Кристина Ефременкова</p>
+</header>
+
+<main>
+
+  <!-- TOC -->
+  <nav class="toc" aria-label="Оглавление">
+    <h2>Оглавление</h2>
+    <ol class="toc-list" start="1">
+      <li class="toc-section-label">Партия 1 — основной запас</li>
+      <li><a href="#r1">Если ты накручиваешь сценарии — это не слабость</a></li>
+      <li><a href="#r2">3 фразы, которые я ловлю у каждой клиентки в третьем триместре</a></li>
+      <li><a href="#r3">Почему «просто расслабься» перед родами не работает</a></li>
+      <li><a href="#r4">Что я говорю клиенткам, которые боятся боли в родах</a></li>
+      <li><a href="#r5">Фраза-якорь, которая снижает тревогу за 4 секунды</a></li>
+      <li><a href="#r6">Почему просмотр родов на ютубе делает только хуже</a></li>
+      <li><a href="#r7">«В наше время» — три слова, после которых нужно сменить тему</a></li>
+      <li><a href="#r8">Договорённость с партнёром, о которой забывают 90% пар</a></li>
+      <li><a href="#r9">Как сказать «я разберусь сама» и не поссориться</a></li>
+      <li><a href="#r10">Почему он «не понимает» твою тревогу</a></li>
+      <li><a href="#r11">Слёзы по пустяку после родов — норма или сигнал?</a></li>
+      <li><a href="#r12">Что нормально в первый месяц, а что — нет</a></li>
+      <li><a href="#r13">Тело после родов не «возвращается» — оно идёт дальше</a></li>
+      <li><a href="#r14">Чувство вины из-за смесей / коляски / телефона</a></li>
+      <li><a href="#r15">Когда «не получается забеременеть» становится тяжёлым</a></li>
+      <li><a href="#r16">Каждый цикл — стресс. Как пройти ожидание</a></li>
+      <li><a href="#r17">Чем перинатальный психолог отличается от обычного</a></li>
+      <li><a href="#r18">Что НЕ будет на моей первой консультации</a></li>
+      <li><a href="#r19">Что меня удивило, когда сама стала мамой</a></li>
+      <li><a href="#r20">Школа Осознанного материнства — не курс «как быть идеальной»</a></li>
+      <li class="toc-section-label">Партия 2 — вторая волна</li>
+      <li><a href="#r21">5 вопросов, которые я задаю на первой консультации</a></li>
+      <li><a href="#r22">Что я отвечаю клиенткам «Я плохая мать»</a></li>
+      <li><a href="#r23">Партнёрские роды — кому стоит, а кому НЕ стоит</a></li>
+      <li><a href="#r24">Что я сделала по-другому со вторым ребёнком</a></li>
+      <li><a href="#r25">Что делать с фразой «Главное — здоровый ребёнок»</a></li>
+      <li><a href="#r26">Кейс клиентки: страх → план → роды без срыва</a></li>
+      <li><a href="#r27">Стыд после кесарева — где он растёт</a></li>
+      <li><a href="#r28">Что я думаю про доулу, гипноз-роды, домашние роды</a></li>
+      <li><a href="#r29">3 фразы, которые лучше не говорить беременной подруге</a></li>
+      <li><a href="#r30">Если плачешь весь третий триместр — норма или сигнал?</a></li>
+    </ol>
+  </nav>
+
+  <!-- PARTIA 1 -->
+  <div class="section-divider" id="part-1">
+    <p class="eyebrow">Партия 1 · 20 рилс</p>
+    <h2>Основной запас</h2>
+    <p class="note">Первая волна — снимать пачкой по 5, монтировать постепенно. Высокий приоритет на №3, №5, №9, №14.</p>
+  </div>
+
+  <article class="reel" id="r1">
+    <span class="number">01</span>
+    <h3>Если ты накручиваешь сценарии — это не слабость</h3>
+    <p class="reel-meta">45 сек <span class="dot">·</span> Беременность <span class="dot">·</span> Hook-нормализация</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Третий триместр. Полчаса ночью. Ты прокручиваешь сценарий, который никогда не случится.</blockquote>
+      <p class="visual"><strong>В кадре:</strong> Кристина, мягкий свет у окна, прямой взгляд в камеру.</p>
+      <p class="visual"><strong>На экране:</strong> «Это не слабость»</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Развёртка · 0:02–0:25</span>
+      <blockquote>Тревога перед родами — встроенная функция, не баг. Она помогает быть внимательной к телу и к малышу. Это эволюция тысячи лет настраивала. Но иногда она перестаёт помогать и начинает съедать дни.</blockquote>
+      <p class="visual"><strong>На экране:</strong> «Тревога = встроенная функция» → «Она была полезна → начала мешать»</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Поворот · 0:25–0:40</span>
+      <blockquote>Признаки, что тревога перешла черту: не уходит ни на час, навязчивые мысли каждый день, бессонница больше двух недель. Если узнала себя — это не слабость, это сигнал.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">CTA · 0:40–0:45</span>
+      <blockquote>На сайте есть бесплатная карточка «Снижение страха перед родами» — попробуй её сегодня вечером.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-1">Скопировать</button></p>
+      <p class="caption-text" id="caption-1">Накручивать сценарии перед родами — это не «у меня нервы слабые». Это нормальная реакция на большую неизвестность. Норма — тревога волнами. Сигнал — тревога фоном без перерывов. Если узнала второе в себе — напиши в директ. Это не «диагноз», это разговор. Бесплатная карточка с техниками — на сайте, ссылка в bio.</p>
+      <p class="hashtags">#перинатальныйпсихолог #беременность #подготовкакродам #тревога #психологдлямам</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r2">
+    <span class="number">02</span>
+    <h3>3 фразы, которые я ловлю у каждой клиентки в третьем триместре</h3>
+    <p class="reel-meta">40 сек <span class="dot">·</span> Беременность <span class="dot">·</span> Список-инсайт</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Я перинатальный психолог. Эти три фразы слышу почти каждый день.</blockquote>
+      <p class="visual"><strong>В кадре:</strong> Кристина, нейтральный фон.</p>
+      <p class="visual"><strong>На экране:</strong> «3 фразы»</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Список · 0:02–0:30</span>
+      <blockquote>Первая: «Я не справлюсь». Вторая: «Я всё испорчу». Третья: «Лучше бы я знала больше, было бы спокойнее».</blockquote>
+      <p class="visual">Между фразами — пауза 1 сек, каждая крупно на экране.</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Разбор · 0:30–0:45</span>
+      <blockquote>У всех трёх одна суть — иллюзия дефицита. Что чего-то не хватает: силы, готовности, информации. На самом деле хватает всего, кроме одного: разрешения себе чувствовать страх.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-2">Скопировать</button></p>
+      <p class="caption-text" id="caption-2">Если эти три фразы крутятся в голове — это не про тебя как маму. Это про общую установку «я должна быть готова на 100%». Никто не готов. Готовиться можно вечно — а в роды идти с тем что есть. Это нормально и достаточно.</p>
+      <p class="hashtags">#перинатальныйпсихолог #беременность #подготовкакродам #психологдлямам #третийтриместр</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r3">
+    <span class="number">03</span>
+    <h3>Почему «просто расслабься» перед родами не работает</h3>
+    <p class="reel-meta">50 сек <span class="dot">·</span> Беременность <span class="dot">·</span> Метод-демо</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Когда тебе говорят «не нервничай» — становится хуже. Объясняю почему.</blockquote>
+      <p class="visual"><strong>В кадре:</strong> Кристина, нейтральный план.</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Объяснение · 0:02–0:18</span>
+      <blockquote>Симпатическая нервная система не выключается командой. «Расслабься» — это попытка отключить пожарную сигнализацию волей. Не работает.</blockquote>
+      <p class="visual"><strong>На экране:</strong> «Команда "расслабься" → не выключает тревогу»</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Демо техники · 0:18–0:42</span>
+      <blockquote>Что работает — переключение через тело. Вот техника 4-7-8. Вдох на 4 счёта. Задержка на 7. Выдох на 8. Делай со мной.</blockquote>
+      <p class="visual">Кристина показывает дыхание в реальном времени, на экране счётчик.</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">CTA · 0:42–0:50</span>
+      <blockquote>Это одна из техник, которые мы ставим на первой консультации. Запись — в директ.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-3">Скопировать</button></p>
+      <p class="caption-text" id="caption-3">Тревогу нельзя «отключить» мыслью. Можно только переключить — через тело. Дыхание 4-7-8 — самое быстрое: вдох 4, задержка 7, выдох 8. Пять циклов = ощутимое снижение тревоги. Сохрани и попробуй сегодня.</p>
+      <p class="hashtags">#перинатальныйпсихолог #дыхание #тревога #подготовкакродам #кпт</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r4">
+    <span class="number">04</span>
+    <h3>Что я говорю клиенткам, которые боятся боли в родах</h3>
+    <p class="reel-meta">50 сек <span class="dot">·</span> Беременность <span class="dot">·</span> Контр-интуиция</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Боль в родах — не такая же, как боль травмы. Это меняет всё.</blockquote>
+      <p class="visual"><strong>В кадре:</strong> руки Кристины с метафорической картой «волна».</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Объяснение · 0:02–0:25</span>
+      <blockquote>Когда ты ломаешь руку — мозг получает сигнал «что-то не так, остановись». Когда схватка — сигнал «что-то правильно, продолжай». Это разная боль. И тело реагирует по-разному.</blockquote>
+      <p class="visual"><strong>На экране:</strong> «Травма ≠ схватка»</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Образ · 0:25–0:45</span>
+      <blockquote>Я предлагаю клиенткам представить схватку как волну. Она нарастает, достигает пика, и обязательно уходит. Между волнами — отдых. Эта боль ведёт тебя к встрече, а не к травме.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">CTA · 0:45–0:50</span>
+      <blockquote>Сохрани этот рилс или поделись с подругой.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-4">Скопировать</button></p>
+      <p class="caption-text" id="caption-4">Образ боли решает многое. «Боль = опасность» запускает панику. «Боль = волна к встрече» даёт возможность дышать. Не магия — просто перестройка установки. Подробнее — в карточке «Боль не враг, а спутник» на сайте.</p>
+      <p class="hashtags">#перинатальныйпсихолог #страхродов #подготовкакродам #боль</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r5">
+    <span class="number">05</span>
+    <h3>Фраза-якорь, которая снижает тревогу за 4 секунды</h3>
+    <p class="reel-meta">40 сек <span class="dot">·</span> Беременность <span class="dot">·</span> Техника</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Одна фраза. Заучи её. Используй в роддоме. Это спасает.</blockquote>
+      <p class="visual"><strong>В кадре:</strong> Кристина, спокойный взгляд.</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Варианты · 0:02–0:25</span>
+      <blockquote>Выбери ту, что отзывается лично тебе.</blockquote>
+      <p class="visual"><strong>На экране:</strong></p>
+      <ul>
+        <li>Каждая схватка приближает встречу.</li>
+        <li>Моё тело знает, что делает.</li>
+        <li>Я не одна. Я в безопасных руках.</li>
+        <li>Эта волна пройдёт. Следующая будет другой.</li>
+      </ul>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Инструкция · 0:25–0:40</span>
+      <blockquote>Заучи её. Скажи вслух дома десять раз. Так в роддоме она придёт на язык сама.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-5">Скопировать</button></p>
+      <p class="caption-text" id="caption-5">Фраза-якорь работает как ремень безопасности. Не предотвращает страх, но удерживает. Выбери одну. Заучи. Скажи мужу. Может быть, наклей на холодильник. Если ничего не отзывается — придумай свою.</p>
+      <p class="hashtags">#перинатальныйпсихолог #подготовкакродам #фразаякорь #тревога</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r6">
+    <span class="number">06</span>
+    <h3>Почему просмотр родов на ютубе делает только хуже</h3>
+    <p class="reel-meta">40 сек <span class="dot">·</span> Беременность <span class="dot">·</span> Развенчание</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Ты ищешь видео родов «чтобы быть готовой». Это работает против тебя.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Объяснение · 0:02–0:25</span>
+      <blockquote>Алгоритм YouTube любит драму. Чем тревожнее ролик — тем чаще его кликают. Тем больше алгоритм показывает таких. Через неделю твоя лента — это парад сложных родов. И тебе кажется, что это норма.</blockquote>
+      <p class="visual"><strong>На экране:</strong> «Алгоритм → драма → твоя лента»</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Что вместо · 0:25–0:40</span>
+      <blockquote>Что реально помогает: лекции акушеров, которые объясняют физиологию. Книги. Курсы подготовки. Психолог. Не ленты соцсетей.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-6">Скопировать</button></p>
+      <p class="caption-text" id="caption-6">Поиск «посмотреть, как другие рожают» — это иллюзия подготовки. Реально готовит — понимание физиологии, дыхание, договорённости с близкими, фраза-якорь. Если не знаешь, с чего начать — заходи на сайт, там бесплатные материалы.</p>
+      <p class="hashtags">#перинатальныйпсихолог #подготовкакродам #тревога #инфогигиена</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r7">
+    <span class="number">07</span>
+    <h3>«В наше время» — три слова, после которых нужно сменить тему</h3>
+    <p class="reel-meta">35 сек <span class="dot">·</span> Окружение <span class="dot">·</span> Виральный</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Свекровь, мама, тётя на работе. Они все начинают одинаково.</blockquote>
+      <p class="visual"><strong>В кадре:</strong> Кристина закатывает глаза с улыбкой.</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Разбор · 0:02–0:20</span>
+      <blockquote>«В наше время рожали в поле и ничего», «В наше время не было эпидуралки», «В наше время не носились с этими психологами». Знакомо?</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Скрипт · 0:20–0:35</span>
+      <blockquote>Ответ один: «Спасибо, я подумаю». Тёплая улыбка. Смена темы. Не споришь, не доказываешь. Их опыт — это их опыт. У тебя будет свой.</blockquote>
+      <p class="visual"><strong>На экране:</strong> «Спасибо, я подумаю.»</p>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-7">Скопировать</button></p>
+      <p class="caption-text" id="caption-7">Эта фраза снимает 90% бытовых конфликтов на тему беременности. Не спорить — сохранять энергию. Если «в наше время» звучит у тебя дома регулярно — сохрани этот рилс себе или отправь маме как мягкий намёк.</p>
+      <p class="hashtags">#перинатальныйпсихолог #границы #свекровь #беременностьсоветы #материнство</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r8">
+    <span class="number">08</span>
+    <h3>Договорённость с партнёром, о которой забывают 90% пар</h3>
+    <p class="reel-meta">45 сек <span class="dot">·</span> Окружение <span class="dot">·</span> Готовый скрипт</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Если в родах я скажу «уйди» — это не значит «уходи». Это значит «мне больно».</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Объяснение · 0:02–0:30</span>
+      <blockquote>В схватках женщины часто говорят что-то резкое. Партнёр воспринимает буквально, обижается, отходит. И в самый трудный момент — она одна. Договоритесь дома: фраза-сигнал на «выйди» = «не сейчас, но останься рядом».</blockquote>
+      <p class="visual"><strong>На экране:</strong> «"Уйди" ≠ "уходи"»</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">CTA · 0:30–0:45</span>
+      <blockquote>Подели этот рилс с партнёром. Это один разговор за чаем, который спасёт ваши роды.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-8">Скопировать</button></p>
+      <p class="caption-text" id="caption-8">Это одна из 5 договорённостей, которые мы прорабатываем в программе подготовки. Остальные четыре: что значит «поддержать» словами, что значит молча, что не помогает, что делать если он сам тревожится. Подробнее — в bio.</p>
+      <p class="hashtags">#перинатальныйпсихолог #партнёрскиероды #подготовкакродам #отношения</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r9">
+    <span class="number">09</span>
+    <h3>Как сказать «я разберусь сама» и не поссориться</h3>
+    <p class="reel-meta">40 сек <span class="dot">·</span> Окружение <span class="dot">·</span> Скрипт</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Свекровь предлагает приехать в роддом с тобой. Ты не хочешь. Как сказать, чтобы не было войны?</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">3 скрипта · 0:02–0:30</span>
+      <blockquote>Первый: «Спасибо, для меня это важная личная история, я хочу пройти её только с мужем. Помоги нам потом — это будет огромная поддержка.» Второй: «Мы решили рожать вдвоём. Я понимаю, что тебе это может быть непросто принять. Я очень благодарна, что ты хочешь быть рядом.» Третий — короткий: «Мы решили вдвоём. Точка.»</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Мысль · 0:30–0:40</span>
+      <blockquote>Любовь не отменяет границ. Иногда наоборот — границы помогают сохранить любовь.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-9">Скопировать</button></p>
+      <p class="caption-text" id="caption-9">Эти три варианта — от самого мягкого до твёрдого. Используй тот, что подходит твоей ситуации. Если родственники продолжают давить — это уже про другие границы, и тут нужна работа отдельно.</p>
+      <p class="hashtags">#перинатальныйпсихолог #границы #свекровь #отношения #беременность</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r10">
+    <span class="number">10</span>
+    <h3>Почему он «не понимает» твою тревогу</h3>
+    <p class="reel-meta">45 сек <span class="dot">·</span> Окружение <span class="dot">·</span> Объяснение</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Партнёр для тебя — наблюдатель. Для тебя самой беременность — это проживание. Это не равнодушие.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Разбор · 0:02–0:30</span>
+      <blockquote>Для него беременность — это смотреть, как ты меняешься. Для тебя — это жить внутри изменений. Стартовая точка отцовства — момент, когда он впервые возьмёт ребёнка на руки. До этого он догадывается, ты — знаешь.</blockquote>
+      <p class="visual"><strong>На экране:</strong> «Наблюдение ≠ проживание»</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Что делать · 0:30–0:45</span>
+      <blockquote>Скажи прямо: «Мне не нужны решения. Мне нужно, чтобы ты был рядом и слушал». Это рабочая инструкция, и она спасает многих.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-10">Скопировать</button></p>
+      <p class="caption-text" id="caption-10">Если партнёр кажется отстранённым — это редко про равнодушие. Чаще про то, что он не знает, как именно быть рядом. Прямые инструкции работают. «Я устала, обними и не говори ничего» — простая, понятная просьба. Учись их формулировать.</p>
+      <p class="hashtags">#перинатальныйпсихолог #отношения #партнёрбеременной #коммуникация</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r11">
+    <span class="number">11</span>
+    <h3>Слёзы по пустяку после родов — норма или сигнал?</h3>
+    <p class="reel-meta">45 сек <span class="dot">·</span> Послеродовое <span class="dot">·</span> Диагностика</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Расплакалась из-за разбитой чашки. Это нормально или мне нужна помощь?</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Норма · 0:02–0:25</span>
+      <blockquote>Первые 2 недели после родов — гормональная буря. Слёзы по любому поводу = норма. Это baby blues, бывает у 80% мам.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Сигнал · 0:25–0:45</span>
+      <blockquote>Когда стоит обратиться: слёзы не уходят больше 2 недель, нет интереса к ребёнку, есть мысли «лучше бы меня не было», страх остаться одной с малышом. Тогда — к перинатальному психологу или психиатру. Это лечится.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-11">Скопировать</button></p>
+      <p class="caption-text" id="caption-11">Между baby blues (норма, 80% мам, проходит за 2 недели) и послеродовой депрессией (~10–15% мам, нужна помощь) — большая разница. Если сомневаешься — лучше один раз прийти и понять, что норма. Чем терпеть.</p>
+      <p class="hashtags">#послеродоваядепрессия #babyblues #послеродовое #перинатальныйпсихолог</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r12">
+    <span class="number">12</span>
+    <h3>Что нормально в первый месяц, а что — нет</h3>
+    <p class="reel-meta">60 сек <span class="dot">·</span> Послеродовое <span class="dot">·</span> Чек-лист</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Забыла как меня зовут на приёме у врача. Это норма?</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Норма · 0:02–0:30</span>
+      <blockquote>Норма в первый месяц.</blockquote>
+      <ul>
+        <li>Забывчивость (мозг экономит ресурсы)</li>
+        <li>Эмоциональные качели (гормоны)</li>
+        <li>Раздражение на партнёра, даже если он молодец</li>
+        <li>Слёзы без причины</li>
+        <li>Чувство «я не справлюсь» (несколько раз в день)</li>
+        <li>Желание побыть одной (даже без ребёнка)</li>
+      </ul>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">К специалисту · 0:30–0:55</span>
+      <blockquote>Когда сразу к врачу.</blockquote>
+      <ul>
+        <li>Не получается встать с кровати больше 2 недель</li>
+        <li>Мысли о самоповреждении или о вреде ребёнку</li>
+        <li>Нет интереса к ребёнку и не возвращается</li>
+        <li>Сильная физическая боль или кровотечение</li>
+      </ul>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">CTA · 0:55–1:00</span>
+      <blockquote>Сохрани себе. И отправь близкой, которая родила недавно.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-12">Скопировать</button></p>
+      <p class="caption-text" id="caption-12">80% того, что мы стесняемся в первый месяц — это норма. Стыдиться нечего. Но 20% — это сигнал, который игнорировать нельзя. Если сомневаешься, к кому из этих 20% ты относишься — напиши, помогу разобраться.</p>
+      <p class="hashtags">#послеродовое #материнство #babyblues #перинатальныйпсихолог</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r13">
+    <span class="number">13</span>
+    <h3>Тело после родов не «возвращается» — оно идёт дальше</h3>
+    <p class="reel-meta">40 сек <span class="dot">·</span> Принятие тела <span class="dot">·</span> Перерамка</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Мы не «возвращаемся в форму». Мы идём в новую форму. Стоп.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Разбор · 0:02–0:25</span>
+      <blockquote>Установка «вернуться к себе до» — ловушка. Тело не отменяет беременность. Оно перестраивается. Растяжки — карта пути, а не дефект. Форма меняется навсегда. Это не «хуже», это «иначе».</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Что делать · 0:25–0:40</span>
+      <blockquote>Перестать сравнивать с собой «до». Начать узнавать себя «сейчас». Это новая близость с телом — не реставрация старой.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-13">Скопировать</button></p>
+      <p class="caption-text" id="caption-13">Беременность — это не пауза перед «возвратом». Это переход. Если относиться к телу как к «поломке, которую надо починить» — будет постоянная борьба. Если как к «телу, которое сделало большое и теперь устраивается» — будет принятие. Карточка «Моё тело меняется» на сайте — про это.</p>
+      <p class="hashtags">#телопослеродов #принятиетела #послеродовое #перинатальныйпсихолог</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r14">
+    <span class="number">14</span>
+    <h3>Чувство вины из-за смесей / коляски / телефона</h3>
+    <p class="reel-meta">45 сек <span class="dot">·</span> Послеродовое <span class="dot">·</span> Узнавание</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Дала смесь. Положила в коляску. Смотрела в телефон. Виновата ли я?</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Разбор · 0:02–0:30</span>
+      <blockquote>Вина мамы — это часто не про ребёнка. Это про ожидания общества: должна кормить грудью, должна носить на руках, должна быть включена 24/7. Откуда эти «должна»? Не из исследований. Из соцсетей, форумов, «успешных мам» в инстаграме.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Перерамка · 0:30–0:45</span>
+      <blockquote>Ребёнок не помнит коляску. Он помнит твоё лицо. Если ты в спокойствии — он в спокойствии. Дать смесь и поспать — это иногда лучше, чем мучиться с ГВ и плакать.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-14">Скопировать</button></p>
+      <p class="caption-text" id="caption-14">Чувство вины — это сигнал, что ты живая мама, а не робот. Но если оно становится фоном — это уже про усталость, не про «плохая мама». Поспать 4 часа подряд > 4 часов идеального ГВ. Сохрани, перечитай в плохой момент.</p>
+      <p class="hashtags">#чувствовины #материнство #послеродовое #перинатальныйпсихолог</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r15">
+    <span class="number">15</span>
+    <h3>Когда «не получается забеременеть» становится тяжёлым психологически</h3>
+    <p class="reel-meta">50 сек <span class="dot">·</span> Планирование <span class="dot">·</span> Сегментный</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Год. Полтора. Два. Каждый цикл — надежда → разочарование → надежда.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Боль цикла · 0:02–0:30</span>
+      <blockquote>Физически попытки могут быть лёгкими. Эмоционально — это марафон. Каждый месяц ты теряешь маленькую мечту. Через полгода это начинает копиться. Через год — может стать выгоранием.</blockquote>
+      <p class="visual"><strong>На экране:</strong> «Цикл = эмоциональные качели»</p>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Что помогает · 0:30–0:50</span>
+      <blockquote>Не игнорировать. Не «просто отвлекаться». Дать себе горевать каждый раз — день-два. Не подавлять. Партнёр обычно справляется иначе — это нормально, вы разные.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-15">Скопировать</button></p>
+      <p class="caption-text" id="caption-15">Если попытки забеременеть длятся больше 6 месяцев и эмоционально это становится сложно — это нормально. И с этим можно работать отдельно, не дожидаясь беременности. Разовая консультация — про это.</p>
+      <p class="hashtags">#планированиебеременности #перинатальныйпсихолог #психология #ожидание</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r16">
+    <span class="number">16</span>
+    <h3>Каждый цикл — стресс. Как пройти ожидание без срывов</h3>
+    <p class="reel-meta">45 сек <span class="dot">·</span> Планирование <span class="dot">·</span> Техника</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Тест отрицательный. Ты плачешь. Партнёр не знает, что сказать.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Техника «короткого траура» · 0:02–0:30</span>
+      <blockquote>Я предлагаю клиенткам так: дать себе 24 часа на грусть. Не «взбадривать». Разрешить плакать, лежать, не строить планов на следующий цикл. Потом — встать. Это работает лучше, чем подавлять и срываться через неделю.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Партнёру · 0:30–0:45</span>
+      <blockquote>Что сказать партнёру: «Сегодня мне грустно. Не нужно меня радовать. Просто будь рядом и налей чаю». Конкретно. Без обвинений.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-16">Скопировать</button></p>
+      <p class="caption-text" id="caption-16">Подавленная грусть всегда выходит — позже и сильнее. Дать ей 24 часа = пройти через неё, а не вокруг. Если ожидание длится дольше года — это уже про работу с психологом, не «просто потерпи». Пиши в директ.</p>
+      <p class="hashtags">#планированиебеременности #перинатальныйпсихолог #ожидание #цикл</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r17">
+    <span class="number">17</span>
+    <h3>Чем перинатальный психолог отличается от обычного</h3>
+    <p class="reel-meta">40 сек <span class="dot">·</span> Метод <span class="dot">·</span> Дифференциация</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Все психологи одинаковые — миф. Объясняю, что меняет специализация.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Разница · 0:02–0:30</span>
+      <blockquote>Перинатальный психолог работает только с темой родительства. Я знаю физиологию беременности — что нормально на каком сроке. Я не «лечу» гормональные перепады. Я различаю baby blues и послеродовую депрессию. Я не предложу «медитацию на лотос», если у тебя кесарево через неделю.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">CTA · 0:30–0:40</span>
+      <blockquote>Если ищешь психолога под перинатальный запрос — это я. Ссылка в bio.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-17">Скопировать</button></p>
+      <p class="caption-text" id="caption-17">Общая психология — это супер. Но если у тебя конкретный запрос про беременность или роды, ты теряешь время, объясняя физиологию и срок. Профильный специалист сразу в контексте. Это не «лучше» — это под задачу.</p>
+      <p class="hashtags">#перинатальныйпсихолог #психологдлямам #беременность #специализация</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r18">
+    <span class="number">18</span>
+    <h3>Что НЕ будет на моей первой консультации</h3>
+    <p class="reel-meta">40 сек <span class="dot">·</span> Метод <span class="dot">·</span> Снятие страха</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Я психолог. Сейчас расскажу, чего на моих консультациях точно НЕ будет.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Список «не» · 0:02–0:30</span>
+      <blockquote>Не будет.</blockquote>
+      <ul>
+        <li>стыжения за твои страхи</li>
+        <li>фраз «ты должна»</li>
+        <li>давления на решения про роды или ГВ</li>
+        <li>расспросов про детство, если ты не хочешь</li>
+        <li>эзотерики, гадания, «посмотрите на свою мать»</li>
+        <li>обещаний «идеальных родов»</li>
+      </ul>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Что будет · 0:30–0:40</span>
+      <blockquote>Конкретный план на 14 дней и 2 техники саморегуляции после первой встречи. Это всё.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-18">Скопировать</button></p>
+      <p class="caption-text" id="caption-18">Если ты раньше ходила к психологу и осталось ощущение «что это было» — попробуй другой подход. Конкретный, со списком на руки, с ясной системой. Не значит «не глубоко» — значит «понятно куда идём». Записаться — в директ.</p>
+      <p class="hashtags">#перинатальныйпсихолог #кпт #методработы #психолог</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r19">
+    <span class="number">19</span>
+    <h3>Я перинатальный психолог. Что меня удивило, когда сама стала мамой</h3>
+    <p class="reel-meta">60 сек <span class="dot">·</span> Личное <span class="dot">·</span> Доверие через уязвимость</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Я учила других. Потом родила сама. Вот что не вошло в учебники.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Удивление 1 · 0:02–0:25</span>
+      <blockquote>Я была уверена, что моя теория поможет мне самой. Помогла — но не так. Я обнаружила, что в моменте могу забыть всё, что знаю. И это не делает меня плохим психологом — это делает меня живым человеком.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Удивление 2 · 0:25–0:50</span>
+      <blockquote>Я не ожидала, что чувство вины перед ребёнком будет настолько сильным. Я давала смесь — и плакала. Знала, что это не предательство — и плакала. Знать и чувствовать — разные вещи. Это смирило меня сильно.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Поворот · 0:50–1:00</span>
+      <blockquote>Поэтому я работаю с мамами иначе теперь. Не «учу», а «иду рядом». Это разница.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-19">Скопировать</button></p>
+      <p class="caption-text" id="caption-19">Стать мамой и остаться психологом — отдельная работа. Уязвимость не делает меня менее профессиональной, наоборот. Если хочешь — приходи на консультацию, в любой стадии материнства.</p>
+      <p class="hashtags">#перинатальныйпсихолог #личное #материнство #кристинаефременкова</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r20">
+    <span class="number">20</span>
+    <h3>Школа Осознанного материнства — это не курс «как быть идеальной»</h3>
+    <p class="reel-meta">40 сек <span class="dot">·</span> Продукт <span class="dot">·</span> Позиционирование</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Слово «осознанное» пугает. Объясню, что мы делаем реально.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Развенчание · 0:02–0:30</span>
+      <blockquote>«Осознанное» — не значит «правильное». Это значит «понимаю, что со мной происходит». Не «не злюсь на ребёнка», а «знаю, почему злюсь и что с этим делать». Не «не плачу», а «понимаю, что плакать = норма, а не сигнал». Это разница.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">CTA · 0:30–0:40</span>
+      <blockquote>На сайте есть код к 15 бонусным карточкам для участниц. Подробности — в bio.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-20">Скопировать</button></p>
+      <p class="caption-text" id="caption-20">«Осознанная мама» не значит «спокойная всегда». Значит — понимающая себя. Это снимает с тебя давление «быть правильной» и оставляет одну задачу — быть в контакте. Это легче. Подробнее про школу — пиши в директ.</p>
+      <p class="hashtags">#1000дней #школаосознанногоматеринства #перинатальныйпсихолог #материнство</p>
+    </div>
+  </article>
+
+  <!-- PARTIA 2 -->
+  <div class="section-divider" id="part-2">
+    <p class="eyebrow">Партия 2 · 10 рилс</p>
+    <h2>Вторая волна</h2>
+    <p class="note">Свежие углы для разнообразия: метод, послеродовое чувство вины, контр-интуиция про партнёрские роды, кейс клиентки, виральные share-baits.</p>
+  </div>
+
+  <article class="reel" id="r21">
+    <span class="number">21</span>
+    <h3>5 вопросов, которые я задаю на первой консультации</h3>
+    <p class="reel-meta">45 сек <span class="dot">·</span> Метод <span class="dot">·</span> Демистификация</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Многие боятся идти к психологу. Сейчас расскажу, что я спрашиваю на первой встрече — чтобы ты знала заранее.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Список · 0:02–0:35</span>
+      <blockquote>Что я спрашиваю.</blockquote>
+      <ul>
+        <li>Что привело именно сейчас?</li>
+        <li>Какой у тебя срок и как ты сейчас себя чувствуешь физически?</li>
+        <li>Как ты обычно справляешься со стрессом?</li>
+        <li>Есть ли поддержка дома — партнёр, мама, подруга?</li>
+        <li>Чего ты боишься больше всего?</li>
+      </ul>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Поворот · 0:35–0:45</span>
+      <blockquote>Никаких «расскажи про маму» в первый раз. Никаких глубоких интерпретаций. Просто понять, где ты сейчас и куда хочешь.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-21">Скопировать</button></p>
+      <p class="caption-text" id="caption-21">Первая консультация — это знакомство, не разбор. Я не буду «копаться». Я задам пять вопросов, ты сама будешь говорить столько, сколько готова. Никакого давления. Записаться — в директ.</p>
+      <p class="hashtags">#перинатальныйпсихолог #перваяконсультация #метод #психолог</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r22">
+    <span class="number">22</span>
+    <h3>Что я отвечаю клиенткам, когда они говорят: «Я плохая мать»</h3>
+    <p class="reel-meta">50 сек <span class="dot">·</span> Послеродовое <span class="dot">·</span> Узнавание</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Самая частая фраза в первые полгода материнства. И почти никогда не правда.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Разбор · 0:02–0:30</span>
+      <blockquote>Когда мама говорит «я плохая» — она почти всегда имеет в виду одно из трёх: я устала и не успеваю, я сравниваю себя с инстаграмом, я виновата за то, что мне иногда не нравится материнство. Ни одно из этого не «плохая мать». Это переутомление.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Когда реально сигнал · 0:30–0:50</span>
+      <blockquote>Признаки реальной беды: ты не интересуешься ребёнком вообще, у тебя мысли о самоповреждении, ты хочешь, чтобы ребёнка не было. Это не «плохая мать» — это болезнь, и её лечат. Скорее всего, это не про тебя.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-22">Скопировать</button></p>
+      <p class="caption-text" id="caption-22">Если эта фраза крутится в голове — сделай паузу. «Плохая мать» — это самоопределение, а не диагноз. Усталость лечится отдыхом. Стыд за смесь — отдыхом и информацией. Если у тебя реально страшные мысли — пиши, разберёмся вместе. Не молчи.</p>
+      <p class="hashtags">#послеродоваядепрессия #плохаямать #чувствовины #перинатальныйпсихолог</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r23">
+    <span class="number">23</span>
+    <h3>Партнёрские роды — кому стоит, а кому НЕ стоит</h3>
+    <p class="reel-meta">50 сек <span class="dot">·</span> Окружение <span class="dot">·</span> Контр-интуиция</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Все вокруг советуют рожать вместе. Сейчас непопулярное мнение: иногда не надо.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Кому стоит · 0:02–0:25</span>
+      <blockquote>Когда стоит: партнёр устойчивый эмоционально, готов быть рядом без своих переживаний на первом плане. Готов молчать, держать руку, подавать воду. Готов выйти, если ты скажешь.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Кому не стоит · 0:25–0:45</span>
+      <blockquote>Когда не надо: партнёр сам тревожный — будешь успокаивать его. Партнёр обесценивает твои страхи. Отношения шаткие. И когда ты сама понимаешь, что хочешь концентрации и тишины — это валидно.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Главное · 0:45–0:50</span>
+      <blockquote>Партнёрские роды — не показатель любви. Доверие важнее, чем присутствие.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-23">Скопировать</button></p>
+      <p class="caption-text" id="caption-23">Если ты не хочешь партнёрских — не объясняйся. Это твой выбор. В программе есть тест «готов ли ваш партнёр к родам» — реалистичный, без оценок. Ссылка в bio.</p>
+      <p class="hashtags">#партнёрскиероды #перинатальныйпсихолог #отношения #подготовкакродам</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r24">
+    <span class="number">24</span>
+    <h3>Что я сделала по-другому со вторым ребёнком, потому что психолог</h3>
+    <p class="reel-meta">60 сек <span class="dot">·</span> Личное <span class="dot">·</span> Доверие</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Я перинатальный психолог. Когда родила сама второй раз, поняла, что половина моих советов работала и со мной.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Три приёма · 0:02–0:30</span>
+      <blockquote>Что я применила: фразу-якорь в схватке — «Это волна, она пройдёт». Договорилась с мужем заранее, что моё «уйди» значит «будь молча рядом». И сделала план на первые 14 дней после родов — конкретный, по часам, кто что готовит.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Что не помогало · 0:30–0:55</span>
+      <blockquote>Не помогло: слишком жёсткий план питания после родов — сорвалась через неделю. Попытка контролировать всё — устала больше, чем стоило. Иногда отпустить — это и есть план.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">CTA · 0:55–1:00</span>
+      <blockquote>Если хочешь подобрать свои якоря — приходи в программу.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-24">Скопировать</button></p>
+      <p class="caption-text" id="caption-24">Знание не отменяет переживание. Я плакала так же, как мои клиентки. Я уставала так же. Разница — у меня были инструменты. Если хочешь иметь свои — программа подготовки в bio.</p>
+      <p class="hashtags">#перинатальныйпсихолог #личное #материнство #кристинаефременкова</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r25">
+    <span class="number">25</span>
+    <h3>Что делать с фразой «Главное — здоровый ребёнок»</h3>
+    <p class="reel-meta">45 сек <span class="dot">·</span> Окружение <span class="dot">·</span> Боль</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Тебе говорят «главное здоровый ребёнок», и ты внутренне сжимаешься. Объясняю почему.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Разбор · 0:02–0:30</span>
+      <blockquote>Эта фраза обесценивает всё, что ты прошла. Страх, усталость, разочарование от тяжёлых родов, чувство потери «себя до». Все эти переживания — настоящие. И они не исчезают от того, что ребёнок здоров. Здоровье ребёнка — это база. Не «всё».</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Что отвечать · 0:30–0:45</span>
+      <blockquote>Скрипт: «Я очень рада, что он здоров. И мне сейчас нужно прожить то, через что я прошла. Это не противоречит первому.»</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-25">Скопировать</button></p>
+      <p class="caption-text" id="caption-25">Если ты слышала эту фразу и тебе было больно — ты не «неблагодарная мать». Ты живой человек, у которого был сложный опыт. Этот опыт надо прожить, а не закрыть фразой «главное, что всё хорошо».</p>
+      <p class="hashtags">#чувствовины #перинатальныйпсихолог #послеродовое #эмпатия</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r26">
+    <span class="number">26</span>
+    <h3>Кейс клиентки: страх → план → роды без срыва</h3>
+    <p class="reel-meta">60 сек <span class="dot">·</span> Социальное доказательство <span class="dot">·</span> Кейс</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Анна, 32 недели. Накручивала себя месяцами. Вот что мы сделали — и как прошли её роды.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">До · 0:02–0:20</span>
+      <blockquote>Она пришла с тревогой, которая не уходила ни на час. Гуглила симптомы каждый день. Боялась всего: боли, врачей, что муж «не справится». За 6 недель до родов.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Что делали · 0:20–0:45</span>
+      <blockquote>Четыре встречи. Карта тревог — выписали все страхи, разделили на «норма» и «сигнал». План родов на бумаге — кто что делает. Дыхание 4-7-8 и фраза-якорь. Парная встреча с мужем — что значит «уйди» и «будь рядом».</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">После · 0:45–1:00</span>
+      <blockquote>Роды прошли с эпидуралкой и партнёром. После — написала: «Я не была спокойной всё время. Я была подготовленной. Это другое». Это лучшая обратная связь, которую я получала.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-26">Скопировать</button></p>
+      <p class="caption-text" id="caption-26">Имя и детали изменены, но история реальная. Программа не обещает «идеальных» родов — она даёт инструменты пережить любые роды осознанно. Подробнее про программу — пиши в директ.</p>
+      <p class="hashtags">#кейс #подготовкакродам #перинатальныйпсихолог #программа</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r27">
+    <span class="number">27</span>
+    <h3>Стыд после кесарева — где он растёт и как с ним обходиться</h3>
+    <p class="reel-meta">55 сек <span class="dot">·</span> Послеродовое <span class="dot">·</span> Чувствительный сегмент</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>«Ты же не рожала по-настоящему». Если слышала или думала это — посмотри.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Откуда стыд · 0:02–0:25</span>
+      <blockquote>Стыд после кесарева — это эхо общественной установки «настоящие роды — естественные». Эта установка не научная. Кесарево — это роды. Большая операция, большое усилие, большое восстановление.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Что помогает · 0:25–0:50</span>
+      <blockquote>Что помогает: дать себе горевать о том, чего не было — спонтанных родов, партнёрских, если планировались. Не сравнивать. И переосмыслить: моё тело и мой ребёнок в безопасности. Это и есть успешные роды.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">CTA · 0:50–0:55</span>
+      <blockquote>Если в этой теме застряла — пиши в директ.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-27">Скопировать</button></p>
+      <p class="caption-text" id="caption-27">Если кесарево было экстренным — горе настоящее. Если плановым — тоже бывает горе. Любое горе нужно прожить, а не «закрыть». В программе «Сопровождение после родов» есть модуль про переживание родов — для любого сценария.</p>
+      <p class="hashtags">#кесарево #послеродовое #перинатальныйпсихолог #принятие</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r28">
+    <span class="number">28</span>
+    <h3>Что я думаю про доулу, гипноз-роды, домашние роды</h3>
+    <p class="reel-meta">60 сек <span class="dot">·</span> Метод <span class="dot">·</span> Открытое мнение</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Меня часто спрашивают: «А вы за партнёрские? за домашние? за гипноз?». Честно отвечу.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Доула · 0:02–0:20</span>
+      <blockquote>Доула — отличная поддержка в родах. Не замена психолога — её задача в моменте. Психолог готовит до, доула помогает в день. Эти роли не пересекаются.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Гипноз-роды · 0:20–0:40</span>
+      <blockquote>Гипноз-роды — техника, которая работает у тех, кто практикует её месяцами заранее. Не «включил и расслабился». Это серьёзная самотренировка. Если есть время и интерес — почему нет.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Домашние · 0:40–0:55</span>
+      <blockquote>Домашние роды — допустимы только при идеальной беременности, опытной акушерке и роддоме в 15 минутах. Это не «тренд», это серьёзное решение с рисками. Без обесценивания тех, кто выбирает — но это не для всех.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Главное · 0:55–1:00</span>
+      <blockquote>Главное — твой выбор, а не мода.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-28">Скопировать</button></p>
+      <p class="caption-text" id="caption-28">Если выбираешь формат родов и нужен открытый разговор без оценок — приходи на разовую консультацию. Расскажу всё, что знаю, и помогу понять, что подходит именно тебе. Без «правильно/неправильно».</p>
+      <p class="hashtags">#доула #гипнозроды #домашниероды #перинатальныйпсихолог</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r29">
+    <span class="number">29</span>
+    <h3>3 фразы, которые лучше не говорить беременной подруге</h3>
+    <p class="reel-meta">50 сек <span class="dot">·</span> Окружение <span class="dot">·</span> Виральный</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Если у тебя есть беременная подруга — пожалуйста, не говори ей этого.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Список · 0:02–0:40</span>
+      <blockquote>Три фразы.</blockquote>
+      <ul>
+        <li>«А ты уже выбрала роддом? Я слышала, там ужасно» — запуск ужастиков, она потом неделю это переваривает.</li>
+        <li>«Главное — не ешь жирное, я вон поправилась на 20 кг» — стыжение тела при чужой беременности.</li>
+        <li>«Не бойся, у меня всё нормально прошло» — обесценивание её страхов, её опыт ≠ твой.</li>
+      </ul>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Что говорить · 0:40–0:50</span>
+      <blockquote>Что вместо: «Как ты сейчас? Чем я могу помочь?». Простой открытый вопрос. Это всё, что нужно.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-29">Скопировать</button></p>
+      <p class="caption-text" id="caption-29">Отправь этот рилс беременной подруге со словами «пусть твои близкие посмотрят». Или подруге, которая не понимает, как тебя поддержать. Это просьба о бережности. Сохрани также.</p>
+      <p class="hashtags">#перинатальныйпсихолог #беременнаяподруга #поддержка #эмпатия</p>
+    </div>
+  </article>
+
+  <article class="reel" id="r30">
+    <span class="number">30</span>
+    <h3>Если плачешь весь третий триместр — норма или сигнал?</h3>
+    <p class="reel-meta">50 сек <span class="dot">·</span> Беременность <span class="dot">·</span> Диагностика</p>
+
+    <div class="beat">
+      <span class="beat-label">Hook · 0:00–0:02</span>
+      <blockquote>Слёзы по любому поводу в третьем триместре. Норма или сигнал?</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Норма · 0:02–0:25</span>
+      <blockquote>Норма: слёзы по конкретным триггерам — фильм, разговор, гормональный всплеск. Быстро проходят. Между эпизодами ты в порядке. Это гормоны и эмоциональная подготовка к встрече.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">Сигнал · 0:25–0:45</span>
+      <blockquote>Сигнал: слёзы без конкретной причины каждый день. Бессонница больше 2 недель. Страх, который не отпускает на час. Мысли «лучше бы я не была беременна». В этом случае — к перинатальному психологу или к акушеру-гинекологу для проверки гормонов щитовидки.</blockquote>
+    </div>
+
+    <div class="beat">
+      <span class="beat-label">CTA · 0:45–0:50</span>
+      <blockquote>Сохрани этот рилс. Если узнаёшь вторую часть — пиши.</blockquote>
+    </div>
+
+    <div class="caption-block">
+      <p class="caption-label">Caption под пост <button class="copy-btn" data-copy="caption-30">Скопировать</button></p>
+      <p class="caption-text" id="caption-30">Гормональные качели в 3-м триместре — норма. Депрессия беременности — тоже бывает, у ~10% женщин. Различить помогает специалист, не Гугл. Если сомневаешься — лучше один раз спросить и успокоиться. Пиши в директ.</p>
+      <p class="hashtags">#тревогабеременности #третийтриместр #перинатальныйпсихолог #гормоны</p>
+    </div>
+  </article>
+
+  <!-- PRODUCTION NOTES -->
+  <aside class="notes" id="notes">
+    <p class="eyebrow">Производственные ноты</p>
+    <h2>Как снимать всё это эффективно</h2>
+
+    <h3>B-roll: снимай партией один раз</h3>
+    <ul>
+      <li>Окно с тюлем, мягкий свет</li>
+      <li>Чай в кружке, ладони на чашке</li>
+      <li>Свечи, плед, подушки</li>
+      <li>Свои руки на животе (для беременных кадров) или просто держащие лист</li>
+      <li>Лист с рукописными заметками — план родов, фразы-якоря</li>
+      <li>Природа: листва, утренний свет, ветви, цветы</li>
+      <li>Текстиль крупным планом: плед, шарф, льняная ткань</li>
+    </ul>
+
+    <h3>Что НЕ снимать</h3>
+    <ul>
+      <li>Кадры в роддоме или у врача — снижают доверие к «психологу»</li>
+      <li>Своих детей крупным планом (этика)</li>
+      <li>Рекламные продукты, плакаты — на фоне ничего не должно отвлекать</li>
+    </ul>
+
+    <h3>Аудио</h3>
+    <ul>
+      <li>Без музыки или очень тихий ambient (пианино, журчание воды)</li>
+      <li>Никогда трендовые треки из TikTok — снижают воспринимаемую экспертность</li>
+      <li>Хороший микрофон важнее камеры — приоритет на чёткость голоса</li>
+    </ul>
+
+    <h3>Длительность</h3>
+    <ul>
+      <li>30–45 сек для большинства — оптимум</li>
+      <li>60 сек только для тем с кейсом или подробным разбором</li>
+      <li>Никогда дольше 60 — алгоритм Reels не любит</li>
+    </ul>
+
+    <h3>Каденс публикаций</h3>
+    <ul>
+      <li>3 рилс в неделю — оптимальный темп</li>
+      <li>Понедельник / Среда / Пятница, утром 9–11 МСК</li>
+      <li>Снимать удобнее партиями по 5 за съёмочный день</li>
+    </ul>
+
+    <h3>Что после 5 недель</h3>
+    <ul>
+      <li>Подведи итог: что зашло, что не зашло</li>
+      <li>Если 3 темы подряд «залетели» — записывай больше похожих</li>
+      <li>Если темы «застревают» — это нормально, не отказывайся от плана</li>
+      <li>Перечитай свои тексты и записи — там новые идеи рождаются</li>
+    </ul>
+  </aside>
+
+</main>
+
+<footer class="page">
+  <p class="brand">КРИС, СКАЖИ МНЕ <span aria-hidden="true">🕊</span></p>
+  <p>Контент-инвентарь Reels · Май 2026</p>
+  <p>Кристина Ефременкова · перинатальный психолог</p>
+  <p style="margin-top:12px;font-size:12px;">При шеринге — пиши, рада обсудить любую тему лично.</p>
+</footer>
+
+<a href="#" class="back-top" id="back-top" aria-label="Наверх">↑</a>
+
+<script>
+  // Copy caption to clipboard
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-copy');
+      const el = document.getElementById(id);
+      if (!el) return;
+      const text = el.textContent || '';
+      const done = () => {
+        const original = btn.textContent;
+        btn.textContent = '✓ Скопировано';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }, 1800);
+      };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done).catch(() => {
+          fallbackCopy(text, done);
+        });
+      } else {
+        fallbackCopy(text, done);
+      }
+    });
+  });
+
+  function fallbackCopy(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  // Back-to-top button
+  const backTop = document.getElementById('back-top');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) backTop.classList.add('visible');
+    else backTop.classList.remove('visible');
+  });
+  backTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+</body>
+</html>
